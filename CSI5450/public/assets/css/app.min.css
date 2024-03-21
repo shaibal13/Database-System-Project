@@ -17,6 +17,12 @@ body[data-layout-mode="dark"] h5,
 body[data-layout-mode="dark"] h6 {
   color: #eff0f2;
 }
+.pull-right{
+  float: right;
+}
+.pull-left{
+  float: left;
+}
 #page-topbar {
   position: fixed;
   top: 0;

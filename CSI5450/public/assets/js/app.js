@@ -1,4 +1,6 @@
 !(function () {
+  var baseUrl = document.querySelector('meta[name="base-url"]').getAttribute('content');
+
   "use strict";
   var t,
     e,
@@ -138,10 +140,12 @@
                     !1),
                   document
                     .getElementById("bootstrap-style")
-                    .setAttribute("href", "assets/css/bootstrap.min.css"),
+                    .setAttribute("href", baseUrl + "/assets/css/bootstrap.min.css"),
+                    // .setAttribute("href", "../assets/css/bootstrap.min.css"),
                   document
                     .getElementById("app-style")
-                    .setAttribute("href", "assets/css/app.min.css"),
+                    // .setAttribute("href", "../assets/css/app.min.css"),
+                    .setAttribute("href", baseUrl + "/assets/css/app.min.css"),
                   sessionStorage.setItem("is_visited", "layout-direction-ltr"))
                 : 1 ==
                     document.getElementById("layout-direction-rtl").checked &&

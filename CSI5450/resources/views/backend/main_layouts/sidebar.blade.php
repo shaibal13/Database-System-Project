@@ -108,8 +108,33 @@
                     <span class="menu-item" data-key="t-ecommerce">Agent</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="agent/newAgent" data-key="t-products">Add New Agent</a></li>
+                    <li><a href="/agent/newAgent" data-key="t-products">Add New Agent</a></li>
                     <li><a href="ecommerce-product-detail.html" data-key="">Agent List</a></li>
+                   
+                </ul>
+              
+            </li>
+            <li>
+                <a href="javascript: void(0);" class="has-arrow">
+                    <i class="bx bx-store icon nav-icon"></i>
+                    <span class="menu-item" data-key="t-ecommerce">Homes</span>
+                </a>
+                
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="#" data-key="t-products">Add New Homes</a></li>
+                    <li><a href="ecommerce-product-detail.html" data-key="">Homes List</a></li>
+                   
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);" class="has-arrow">
+                    <i class="bx bx-store icon nav-icon"></i>
+                    <span class="menu-item" data-key="t-ecommerce">Owners</span>
+                </a>
+                
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{ route('owners.addoredit') }}" data-key="t-products">Add New Owner</a></li>
+                    <li><a href="/owners" data-key="">Owners List</a></li>
                    
                 </ul>
             </li>

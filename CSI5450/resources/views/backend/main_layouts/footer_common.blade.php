@@ -158,6 +158,8 @@
         <div class="rightbar-overlay"></div>
 
         <!-- JAVASCRIPT -->
+        <script src="{{ asset('assets/js/jquery-3.6.0.js') }}"></script>
+
         <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/libs/metismenujs/metismenujs.min.js') }}"></script>
 <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
@@ -171,10 +173,18 @@
 <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
 
 <script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/toastr.js') }}"></script>
 <script src="{{ asset('assets/libs/gridjs/gridjs.umd.js') }}"></script>
 
 <script src="{{ asset('assets/js/pages/gridjs.init.js') }}"></script>
 
-
+<script>
+    @if(session('success'))
+        toastr.success('{{ session('success') }}');
+    @endif
+    @if(session('error'))
+        toastr.error('{{ session('error') }}');
+    @endif
+</script>
     </body>
 </html>

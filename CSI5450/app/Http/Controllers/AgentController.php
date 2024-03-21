@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Agent; // Load the model
+use App\Models\Agents; // Load the model
 
 
 class AgentController extends Controller
@@ -15,7 +15,7 @@ class AgentController extends Controller
 
     public function addNewAgent(Request $request)
    {
-       $agent = new Agent;
+       $agent = new Agents;
 
        $agent->name = $request->name;
        $agent->dob = $request->dob;
