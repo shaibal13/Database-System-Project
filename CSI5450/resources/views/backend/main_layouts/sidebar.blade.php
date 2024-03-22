@@ -121,8 +121,8 @@
                 </a>
                 
                 <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="#" data-key="t-products">Add New Homes</a></li>
-                    <li><a href="ecommerce-product-detail.html" data-key="">Homes List</a></li>
+                    <li><a href="{{ route('homes.addoredit') }}" data-key="t-products">Add New Homes</a></li>
+                    <li><a href="/homes" data-key="">Homes List</a></li>
                    
                 </ul>
             </li>

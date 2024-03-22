@@ -30,6 +30,10 @@ Route::get('appliances/addNewAppliances/{id?}', [AppliancesController::class, 'a
 Route::post('appliances/addorupdateNewApplianceForm', [AppliancesController::class, 'addorupdateNewApplianceForm']);
 Route::get('appliances', [AppliancesController::class, 'index']);
 
+Route::get('homes/addNewHomes/{id?}', [HomesController::class, 'addNewHomes'])->name('homes.addoredit');
+Route::post('homes/addorupdateNewHomeForm', [HomesController::class, 'addorupdateNewHomeForm']);
+Route::get('homes', [HomesController::class, 'index']);
+
 
 // Route::resource('posts', AgentController::class)->only([
 //     'destroy', 'show', 'store', 'update'
