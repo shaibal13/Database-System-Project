@@ -5,6 +5,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\OwnersController;
 use App\Http\Controllers\HomesController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\AppliancesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +21,15 @@ Route::get('/', function () {
 });
 Route::get('agent/addNewAgent', [AgentController::class, 'addNewAgent']);
 Route::get('agent/newAgent', [AgentController::class, 'newAgent']);
-// Route::post('owners/addNewOwners', [OwnersController::class, 'addNewOwners']);
-// Route::get('owners/addNewOwnerForm', [OwnersController::class, 'addNewOwnerForm']);
-// Route::get('owners/addNewOwnerForm/{id?}', [OwnersController::class, 'addNewOwnerForm'])->name('owners.addOrEdit');
+
 Route::get('owners/addNewOwners/{id?}', [OwnersController::class, 'addNewOwners'])->name('owners.addoredit');
 Route::post('owners/addorupdateNewOwnerForm', [OwnersController::class, 'addorupdateNewOwnerForm']);
-
-
 Route::get('owners', [OwnersController::class, 'index']);
+
+Route::get('appliances/addNewAppliances/{id?}', [AppliancesController::class, 'addNewAppliances'])->name('appliances.addoredit');
+Route::post('appliances/addorupdateNewApplianceForm', [AppliancesController::class, 'addorupdateNewApplianceForm']);
+Route::get('appliances', [AppliancesController::class, 'index']);
+
 
 // Route::resource('posts', AgentController::class)->only([
 //     'destroy', 'show', 'store', 'update'
