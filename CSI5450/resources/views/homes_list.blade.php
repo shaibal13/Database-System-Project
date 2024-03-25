@@ -62,7 +62,7 @@
                       
                         <thead>
                           <tr>
-                            <th>#</th>
+                            <th>Home Id</th>
                             <th>Floor Space</th>
                             <th>Floors</th>
                             <th>BedRooms</th>
@@ -84,7 +84,7 @@
                        
                         @endphp
                         <tr>
-                            <td>{{ $i++ }}</td>
+                            <td>{{ $home->HomeID }}</td>
                             <td>{{ $home->FloorSpace }}</td>
                             <td>{{ $home->Floors }}</td>
                             <td>{{ $home->BedRooms }}</td>

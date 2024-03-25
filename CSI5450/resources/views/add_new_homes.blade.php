@@ -103,13 +103,13 @@
 
 
 <div class="col-lg-3">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">City</label>
+                                            <label for="example-text-input" class="col-md-4 col-form-label">City</label>
                                             <div class="col-md-10">
                                                 <input class="form-control" type="text"  value="{{ $location->City ?? '' }}" id="example-text-input" name="City" required>
                                             </div>
 </div>
 <div class="col-lg-3">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">State</label>
+                                            <label for="example-text-input" class="col-md-4 col-form-label">State</label>
                                             <div class="col-md-10">
                                                 <input class="form-control" type="text"  value="{{ $location->State ?? '' }}" id="example-text-input" name="State" required>
                                             </div>
@@ -124,12 +124,12 @@
                                        
                                         <div class="mb-3 row">
                                         <div class="col-lg-6">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Zip</label>
+                                            <label for="example-text-input" class="col-md-4 col-form-label">Zip</label>
                                             <div class="col-md-10">
                                                 <input class="form-control" type="number" min="10000" max="99999"  value="{{ $location->Zip ?? '' }}" id="example-text-input" name="Zip" required>
                                             </div>
 </div> <div class="col-lg-6">
-                                            <label for="example-text-input" class="col-md-3 col-form-label">Unit number</label>
+                                            <label for="example-text-input" class="col-md-4 col-form-label">Unit number</label>
                                             <div class="col-md-10">
                                                 <input class="form-control" type="text"  value="{{ $location->Apt ?? '' }}" id="example-text-input" name="Apt">
                                             </div>
