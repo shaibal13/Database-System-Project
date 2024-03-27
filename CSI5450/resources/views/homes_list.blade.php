@@ -41,7 +41,15 @@
                   <div class="card-header table_header">
                     <!-- <div class="col-lg-10"> -->
                         <div class="row">
-                    <h4 class="card-title col-lg-8">Homes List</h4>
+                    <h4 class="card-title col-lg-8">@php
+                          if($type=='all'){
+                            echo "Homes List";
+                          } elseif($type=='for_sale'){
+                            echo "For Sale home list";
+                          }else{
+                            echo "Owned Home List";
+                          }
+                    @endphp</h4>
                  <!-- </div> -->
                     <div class="col-lg-4 pull-right">
                     <a href="{{ route('homes.addoredit') }}" class="btn btn-xs btn-secondary waves-effect waves-light pull-right">Add New Home</a>
@@ -70,7 +78,8 @@
                             <th>Land Size</th>
                             <th>YearConstructed</th>
                             <th>Type</th>
-                            <th>Address</th>
+                            <th>Status</th>
+                             <th>Address</th>
                             <th>Option</th>
                           </tr>
                         </thead>
@@ -93,9 +102,15 @@
                             <td>{{ $home->YearConstructed }}</td>
                             <td>{{ $home->Type }}</td>
                             <td>
+                            @php
+                            if($home->Status == 'for_sale'){ echo "For Sale"; 
+                            }else{ echo "Owned";}
+                            @endphp
+                            </td>
+                            <td>
     {{ $location_details->Street }}
     @if (!empty($location_details->Apt))
-        , Unit {{ $location_details->Apt }}
+        ,<br> Unit {{ $location_details->Apt }}
     @endif
     , {{ $location_details->City }}
     @if (!empty($location_details->Apt))
@@ -106,7 +121,13 @@
     , {{ $location_details->Zip }}
 </td>
                             <td> <a href="{{ route('homes.addoredit', $home->_id) }}" class="btn btn-xs btn-warning">Edit</a>
-                                  <a href="{{ route('homes.add_appliances', $home->_id) }}" class="btn btn-xs btn-success">Add Appliances</a> </td>
+                                  <a href="{{ route('homes.add_appliances', $home->_id) }}" class="btn btn-xs btn-success">Add Appliances</a> 
+                                  @if($type=='for_sale' || $home->Status=='for_sale')
+                                  <a href="{{ route('homes.statuschange',['id' => $home->_id, 'status' => 'owned']) }}" class="btn btn-xs btn-warning">Moved to owner</a>
+                                  @elseif($type=='owned'|| $home->Status=='owned')
+                                <a href="{{ route('homes.statuschange',['id' => $home->_id, 'status' => 'for_sale']) }}" class="btn btn-xs btn-warning">Available for sale</a>
+                                @endif
+                                </td>
                             <!-- Add other fields as needed -->
                         </tr>
                     @endforeach

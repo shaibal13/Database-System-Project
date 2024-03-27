@@ -12,8 +12,20 @@ class HomesController extends Controller
     // Get all the home list
     public function index(){
         $homes=Homes::getHomeDetails();
+        $type='all';
+        return view('homes_list',compact('homes','type'));
+    }
+    public function forSale(){
+        $type='for_sale';
+        $homes=Homes::getHomeDetailsByAvailability($type);
         
-        return view('homes_list',compact('homes'));
+        return view('homes_list',compact('homes','type'));
+    }
+    public function owned(){
+        $type='owned';
+        $homes=Homes::getHomeDetailsByAvailability($type);
+        
+        return view('homes_list',compact('homes','type'));
     }
 // Add new home and corresponding home
     public function addNewHomes($id=null){
@@ -46,6 +58,7 @@ class HomesController extends Controller
             'County' => $request->County,
             'Zip' => $request->Zip,           
             'Apt' => $request->Apt,
+            
         ];
         $data = [
             
@@ -56,6 +69,7 @@ class HomesController extends Controller
             'LandSize' => $request->LandSize,
             'YearConstructed' => $request->YearConstructed,
             'Type' => $type,
+            'Status' => $request->home_status
             
         ];
         if ($request->id) {
@@ -93,6 +107,27 @@ class HomesController extends Controller
         return redirect()->to('homes')->with('success', $message);
       
     }
+
+    //Change the status
+    public function statuschange($id=null, $status=null){
+        $data=array();
+        $data = [
+            
+            'Status' => $status  
+        ];
+        
+        Homes::updateHome($id,$data);
+        if($status=="owned"){
+            $message = 'Homes moved to owner successfully!';
+            return redirect()->to('homes/owned')->with('success', $message);
+        }else{
+            $message = 'Home available for sale!';
+            return redirect()->to('homes/forSale')->with('success', $message);
+        }
+        
+        
+    }
+//Add appliances to Home
     public function addAppliancesToHome($id=null){
         $homes=Homes::getHome($id);
         $appliances=Appliances::getAppliancesDetails();

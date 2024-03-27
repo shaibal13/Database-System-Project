@@ -123,6 +123,8 @@
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('homes.addoredit') }}" data-key="t-products">Add New Homes</a></li>
                     <li><a href="/homes" data-key="">Homes List</a></li>
+                    <li><a href="/homes/forSale" data-key="">For Sale</a></li>
+                    <li><a href="/homes/owned" data-key="">Owned Homes</a></li>
                     <!-- <li><a href="{{ route('homes.add_appliances') }}" data-key="t-products">New Appliances to home</a></li> -->
                    
                 </ul>

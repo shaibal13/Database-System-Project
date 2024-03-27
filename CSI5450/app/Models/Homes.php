@@ -48,6 +48,14 @@ class Homes extends Eloquent
             return $collection->find();
         });
     }
+    // Find by the status owned or for sale
+
+    public function getHomeDetailsByAvailability($type){
+        
+        return self::raw(function($collection) use ($type) {
+            return $collection->find(['Status' => $type]);
+        });
+    }
     // Method to delete a Home
     public function deleteHome($id) {
         $home = self::find($id);
