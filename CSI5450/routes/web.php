@@ -6,6 +6,7 @@ use App\Http\Controllers\OwnersController;
 use App\Http\Controllers\HomesController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AppliancesController;
+use App\Http\Controllers\CompaniesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +41,10 @@ Route::get('homes/forSale', [HomesController::class, 'forSale']);
 Route::get('homes/owned', [HomesController::class, 'owned']);
 Route::get('homes/statuschange/{id?}/{status?}', [HomesController::class, 'statuschange'])->name('homes.statuschange');
 
+
+Route::get('companies', [CompaniesController::class, 'index']);
+Route::get('companies/addNewCompanies/{id?}', [CompaniesController::class, 'addNewCompanies'])->name('companies.addoredit');
+Route::post('companies/addorupdateNewCompaniesForm', [CompaniesController::class, 'addorupdateNewCompaniesForm']);
 // Route::resource('posts', AgentController::class)->only([
 //     'destroy', 'show', 'store', 'update'
 //  ]);

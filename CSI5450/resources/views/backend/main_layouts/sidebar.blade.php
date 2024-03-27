@@ -141,6 +141,7 @@
                    
                 </ul>
             </li>
+
             <li>
                 <a href="javascript: void(0);" class="has-arrow">
                     <i class="bx bx-store icon nav-icon"></i>
@@ -151,6 +152,18 @@
                     <li><a href="{{ route('appliances.addoredit') }}" data-key="t-products">Add New Appliances</a></li>
                     <li><a href="/appliances" data-key="">Appliances List</a></li>
                     <li><a href="{{ route('appliances.appliances_by_maker') }}" data-key="t-products">Find home by maker</a></li>
+                   
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);" class="has-arrow">
+                    <i class="bx bx-store icon nav-icon"></i>
+                    <span class="menu-item" data-key="t-ecommerce">Companies</span>
+                </a>
+                
+                <ul class="sub-menu" aria-expanded="false">
+                    <li><a href="{{ route('companies.addoredit') }}" data-key="t-products">Add New Company</a></li>
+                    <li><a href="/companies" data-key="">Companies List</a></li>
                    
                 </ul>
             </li>
