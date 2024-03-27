@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Homes;
 use App\Models\Location;
+use App\Models\Appliances;
 
 class HomesController extends Controller
 {
@@ -67,7 +68,7 @@ class HomesController extends Controller
             //Location update
             $locations = Location::getLocation($homes->LocationId);
            
-            Location::updateLocation($request->id,$data_location);
+            Location::updateLocation($locations->_id,$data_location);
           
             Homes::updateHome($request->id,$data);
             $message = 'Homes updated successfully!';
@@ -91,5 +92,35 @@ class HomesController extends Controller
     
         return redirect()->to('homes')->with('success', $message);
       
+    }
+    public function addAppliancesToHome($id=null){
+        $homes=Homes::getHome($id);
+        $appliances=Appliances::getAppliancesDetails();
+
+        $existed_appliances = [];
+        if (isset($homes->Appliances)) {
+            foreach ($homes->Appliances as $existed_appliance_) {
+                // Convert each BSONDocument to an array
+                $existed_appliances[] = json_decode(json_encode($existed_appliance_), true)['ModelName'];
+            }
+        }
+        // print_r($appliances);
+        // $appliances=Appliances::getAppliancesDetails();
+        // return view('add_appliances_to_home',compact('homes','appliances'));
+
+        return view('add_appliances_to_home',compact('homes','appliances','existed_appliances'));
+
+    }
+    public function addorupdateNewApplianceForm(Request $request){
+            $id=$request->id;
+            // $appliances=$request->appliances;
+            $appliances = array_map(function($modelName) {
+                return ['ModelName' => $modelName];
+            }, $request->appliances);
+            // print_r($appliances);
+
+           $added_appliances=Homes::addAppliancesToHome($id,$appliances);
+           return redirect()->to('homes')->with('success', 'Appliances added successfully');
+            // print_r($request->appliances);
     }
 }

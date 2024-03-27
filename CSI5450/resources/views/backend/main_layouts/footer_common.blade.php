@@ -177,7 +177,13 @@
 <script src="{{ asset('assets/libs/gridjs/gridjs.umd.js') }}"></script>
 
 <script src="{{ asset('assets/js/pages/gridjs.init.js') }}"></script>
+ <!-- choices js -->
+ <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
 
+<!-- color picker js
+<script src="{{ asset('assets/libs/@simonwep/pickr/pickr.min.js') }}"></script>
+<script src="{{ asset('assets/libs/@simonwep/pickr/pickr.es5.min.js') }}"></script> -->
+<script src="{{ asset('assets/js/pages/form-advanced.init.js') }}"></script>
 <script>
     @if(session('success'))
         toastr.success('{{ session('success') }}');

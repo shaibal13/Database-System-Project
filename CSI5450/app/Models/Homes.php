@@ -53,4 +53,90 @@ class Homes extends Eloquent
         $home = self::find($id);
         $home->delete();
     }
+    //Add appliances to the home collection
+    public function addAppliancesToHome($id, $appliances){
+
+     
+
+        return self::raw(function($collection) use ($id, $appliances) {
+            $objectId = new ObjectId($id); 
+
+               // First, set the Appliances field to an empty array
+            $collection->updateOne(
+                ['_id' => $objectId],
+                ['$set' => ['Appliances' => []]]
+            );
+
+
+            return $collection->updateOne(
+                ['_id' => $objectId],
+                ['$push' => ['Appliances' => ['$each' => $appliances]]]
+            );
+        });
+    }
+// Question 4	Find all the homes that include all e ques by the same maker
+    public function findAllHomesUsedBySameMaker($maker){
+        return self::raw(function($collection) use ($maker) {
+            return $collection->aggregate([
+                [
+                    '$lookup' => [
+                        'from' => 'appliances',
+                        'localField' => 'Appliances.ModelName',
+                        'foreignField' => 'ModelName',
+                        'as' => 'ApplianceDetails'
+                    ]
+                ],
+                [
+                    '$unwind' => [
+                        'path' => '$ApplianceDetails',
+                        'preserveNullAndEmptyArrays' => true // keeps the homes without matching appliances
+                    ]
+                ],
+                [
+                    '$match' => [
+                        'ApplianceDetails.Maker' => $maker
+                    ]
+                ],
+                [
+                    '$group' => [ // Group the results back to the original home document structure
+                        '_id' => '$_id',
+                        'FloorSpace' => ['$first' => '$FloorSpace'],
+                        'Floors' => ['$first' => '$Floors'],
+                        'BedRooms' => ['$first' => '$BedRooms'],
+                        'BathRooms' => ['$first' => '$BathRooms'],
+                        'LandSize' => ['$first' => '$LandSize'],
+                        'YearConstructed' => ['$first' => '$YearConstructed'],
+                        'Type' => ['$first' => '$Type'],
+                        'HomeID' => ['$first' => '$HomeID'],
+                        'LocationId' => ['$first' => '$LocationId'],
+                        'ApplianceDetails' => ['$push' => '$ApplianceDetails'] // Push appliances into an array
+                    ]
+                ],
+                [
+                    '$project' => [ // Project the final structure
+                        'FloorSpace' => 1,
+                        'Floors' => 1,
+                        'BedRooms' => 1,
+                        'BathRooms' => 1,
+                        'LandSize' => 1,
+                        'YearConstructed' => 1,
+                        'Type' => 1,
+                        'HomeID' => 1,
+                        'LocationId' => 1,
+                        'Appliances' => '$ApplianceDetails',
+                        '_id' => 0
+                    ]
+                ],
+                [
+                    '$match' => [ // Ensure that only homes with the appliances are included
+                        'Appliances' => [
+                            '$not' => [
+                                '$size' => 0
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
+        });
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appliances;
+use App\Models\Homes;
 class AppliancesController extends Controller
 {
     //
@@ -38,5 +39,21 @@ class AppliancesController extends Controller
     
         return redirect()->to('appliances')->with('success', $message);
       
+    }
+    public function findHomebyMaker(Request $request){
+        $maker=Appliances::get_unique_maker_list(); 
+        if ($request->isMethod('get'))
+        {
+            return view('find_appliances_home',compact('maker'));
+        }
+        if ($request->isMethod('post'))
+        {
+            $maker_name=$request->appliances_maker;
+         
+            $homes=Homes::findAllHomesUsedBySameMaker($maker_name);
+           
+            return view('find_appliances_home',compact('maker','maker_name','homes'));
+        }
+        
     }
 }

@@ -29,9 +29,12 @@ Route::get('owners', [OwnersController::class, 'index']);
 Route::get('appliances/addNewAppliances/{id?}', [AppliancesController::class, 'addNewAppliances'])->name('appliances.addoredit');
 Route::post('appliances/addorupdateNewApplianceForm', [AppliancesController::class, 'addorupdateNewApplianceForm']);
 Route::get('appliances', [AppliancesController::class, 'index']);
+Route::any('appliances/findHomebyMaker', [AppliancesController::class, 'findHomebyMaker'])->name('appliances.appliances_by_maker');
 
 Route::get('homes/addNewHomes/{id?}', [HomesController::class, 'addNewHomes'])->name('homes.addoredit');
+Route::get('homes/addAppliancesToHome/{id?}', [HomesController::class, 'addAppliancesToHome'])->name('homes.add_appliances');
 Route::post('homes/addorupdateNewHomeForm', [HomesController::class, 'addorupdateNewHomeForm']);
+Route::post('homes/addorupdateNewApplianceForm', [HomesController::class, 'addorupdateNewApplianceForm']);
 Route::get('homes', [HomesController::class, 'index']);
 
 

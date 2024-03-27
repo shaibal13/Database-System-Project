@@ -106,7 +106,7 @@
     , {{ $location_details->Zip }}
 </td>
                             <td> <a href="{{ route('homes.addoredit', $home->_id) }}" class="btn btn-xs btn-warning">Edit</a>
-</td>
+                                  <a href="{{ route('homes.add_appliances', $home->_id) }}" class="btn btn-xs btn-success">Add Appliances</a> </td>
                             <!-- Add other fields as needed -->
                         </tr>
                     @endforeach

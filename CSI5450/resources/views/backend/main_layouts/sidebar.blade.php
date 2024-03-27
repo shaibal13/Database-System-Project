@@ -123,6 +123,7 @@
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('homes.addoredit') }}" data-key="t-products">Add New Homes</a></li>
                     <li><a href="/homes" data-key="">Homes List</a></li>
+                    <!-- <li><a href="{{ route('homes.add_appliances') }}" data-key="t-products">New Appliances to home</a></li> -->
                    
                 </ul>
             </li>
@@ -147,6 +148,7 @@
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('appliances.addoredit') }}" data-key="t-products">Add New Appliances</a></li>
                     <li><a href="/appliances" data-key="">Appliances List</a></li>
+                    <li><a href="{{ route('appliances.appliances_by_maker') }}" data-key="t-products">Find home by maker</a></li>
                    
                 </ul>
             </li>
