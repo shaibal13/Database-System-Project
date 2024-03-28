@@ -44,7 +44,8 @@ class AppliancesController extends Controller
         $maker=Appliances::get_unique_maker_list(); 
         if ($request->isMethod('get'))
         {
-            return view('find_appliances_home',compact('maker'));
+            $homes=array();
+            return view('find_appliances_home',compact('maker','homes'));
         }
         if ($request->isMethod('post'))
         {

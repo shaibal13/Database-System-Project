@@ -129,7 +129,7 @@
                         </thead>
                         <tbody>
                      
-                       @if(!empty($homes->isNotEmpty()))
+                       @if(!empty($homes))
                             @foreach ($homes as $home)
                                 <tr>
                                     <td>{{ $home->HomeID }}</td>

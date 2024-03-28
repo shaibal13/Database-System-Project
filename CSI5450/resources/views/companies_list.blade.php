@@ -64,6 +64,7 @@
                           <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Address</th>
                             <th>Percentage</th>
                             <th>Option</th>
                           </tr>
@@ -75,6 +76,7 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $company->Name }}</td>
+                            <td>{{ $company->Address }}</td>
                             <td>{{ $company->Percentage }}</td>
                             
                             <td> <a href="{{ route('companies.addoredit', $company->_id) }}" class="btn btn-xs btn-warning">Edit</a>

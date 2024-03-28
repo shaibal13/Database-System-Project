@@ -9,7 +9,7 @@ use MongoDB\BSON\ObjectId; //For native use
 class Companies extends Eloquent
 {
     use HasFactory;
-    protected $fillable = ['Name', 'Percentage'];
+    protected $fillable = ['Name','Address', 'Percentage'];
 
     public function getCompanies($id) {
         $objectId = new ObjectId($id);
@@ -36,6 +36,21 @@ class Companies extends Eloquent
                 ['_id' => $objectId],
                 ['$set' => $updateData]
             );
+        });
+    }
+    public function updateCompaniesBYAddingNewAgent($id, $agent){
+
+     
+        return self::raw(function($collection) use ($id, $agent) {
+            $objectId = new ObjectId($id);
+    
+            // Check and add each agent only if it's not already in the array
+            foreach ($agent as $agentData) {
+                $collection->updateOne(
+                    ['_id' => $objectId, 'Agent.AgentId' => ['$ne' => $agentData['AgentId']]],
+                    ['$push' => ['Agent' => $agentData]]
+                );
+            }
         });
     }
 }

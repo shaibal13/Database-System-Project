@@ -108,8 +108,8 @@
                     <span class="menu-item" data-key="t-ecommerce">Agent</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="/agent/newAgent" data-key="t-products">Add New Agent</a></li>
-                    <li><a href="ecommerce-product-detail.html" data-key="">Agent List</a></li>
+                    <li><a href="{{ route('agents.addoredit') }}" data-key="t-products">Add New Agent</a></li>
+                    <li><a href="/agents" data-key="">Agent List</a></li>
                    
                 </ul>
               

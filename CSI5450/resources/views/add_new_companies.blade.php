@@ -61,9 +61,37 @@
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Address</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" value="{{ $company->Address ?? '' }}" id="example-text-input" name="address" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Percentage (%)</label>
                                             <div class="col-md-10">
                                                 <input class="form-control" min="1" max="100" step="0.01" type="number" value="{{ $company->Percentage ?? '' }}" id="example-text-input" name="Percentage" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-2 col-form-label">Agents</label>
+                                            <div class="col-md-10">
+                                            <select class="form-control" data-trigger
+                                                            id="choices-multiple-default"
+                                                            placeholder="This is a placeholder" name=agents[] multiple>
+                                                            @foreach($agents as $agent)
+                                                            <option value="{{$agent->_id}}"
+                                                            @php
+                                                                if(!empty($existed_agent)){
+                                                                    if(in_array($agent->_id,$existed_agent)){
+                                                                        echo "selected";
+                                                                    }
+                                                                }
+                                                            @endphp
+                                                            
+                                                            
+                                                            >{{$agent->Name}}</option>  
+                                                            @endforeach
+                                                        </select>
                                             </div>
                                         </div>
                                        

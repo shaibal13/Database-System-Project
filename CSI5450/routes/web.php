@@ -20,8 +20,9 @@ use App\Http\Controllers\CompaniesController;
 Route::get('/', function () {
     return view('dashboard/dashboard');
 });
-Route::get('agent/addNewAgent', [AgentController::class, 'addNewAgent']);
-Route::get('agent/newAgent', [AgentController::class, 'newAgent']);
+Route::get('agents/addNewAgents/{id?}', [AgentController::class, 'addNewAgents'])->name('agents.addoredit');
+Route::post('agents/addorupdateNewAgentForm', [AgentController::class, 'addorupdateNewAgentForm']);
+Route::get('agents', [AgentController::class, 'index']);
 
 Route::get('owners/addNewOwners/{id?}', [OwnersController::class, 'addNewOwners'])->name('owners.addoredit');
 Route::post('owners/addorupdateNewOwnerForm', [OwnersController::class, 'addorupdateNewOwnerForm']);
