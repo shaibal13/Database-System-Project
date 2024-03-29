@@ -13,7 +13,7 @@ class Homes extends Eloquent
         'HomeID','FloorSpace', 'Floors', 'BedRooms', 'BathRooms',
         'LandSize', 'YearConstructed', 'Type', 'LocationId'
     ];
-   
+
     // Method to create a new Home
     public function addHome($data){
         return self::raw(function($collection) use ($data) {
@@ -64,7 +64,7 @@ class Homes extends Eloquent
     //Add appliances to the home collection
     public function addAppliancesToHome($id, $appliances){
 
-     
+
 
         return self::raw(function($collection) use ($id, $appliances) {
             $objectId = new ObjectId($id); 

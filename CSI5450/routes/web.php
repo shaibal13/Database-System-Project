@@ -22,7 +22,9 @@ Route::get('/', function () {
 });
 Route::get('agents/addNewAgents/{id?}', [AgentController::class, 'addNewAgents'])->name('agents.addoredit');
 Route::post('agents/addorupdateNewAgentForm', [AgentController::class, 'addorupdateNewAgentForm']);
-Route::get('agents', [AgentController::class, 'index']);
+Route::get('agents', [AgentController::class, 'index'])->name('agents.index');
+Route::delete('/agents/{id}', [AgentController::class, 'destroy'])->name('agents.delete');
+
 
 Route::get('owners/addNewOwners/{id?}', [OwnersController::class, 'addNewOwners'])->name('owners.addoredit');
 Route::post('owners/addorupdateNewOwnerForm', [OwnersController::class, 'addorupdateNewOwnerForm']);
