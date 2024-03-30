@@ -6,26 +6,27 @@ use Illuminate\Http\Request;
 use App\Models\Homes;
 use App\Models\Location;
 use App\Models\Appliances;
-
+use App\Models\Companies;
 class HomesController extends Controller
 {
     // Get all the home list
     public function index(){
         $homes=Homes::getHomeDetails();
+        $companies=Companies::getCompaniesDetails();
         $type='all';
-        return view('homes_list',compact('homes','type'));
+        return view('homes_list',compact('homes','type','companies'));
     }
     public function forSale(){
         $type='for_sale';
         $homes=Homes::getHomeDetailsByAvailability($type);
-        
-        return view('homes_list',compact('homes','type'));
+        $companies=Companies::getCompaniesDetails();
+        return view('homes_list',compact('homes','type','companies'));
     }
     public function owned(){
         $type='owned';
         $homes=Homes::getHomeDetailsByAvailability($type);
-        
-        return view('homes_list',compact('homes','type'));
+        $companies=Companies::getCompaniesDetails();
+        return view('homes_list',compact('homes','type','companies'));
     }
 // Add new home and corresponding home
     public function addNewHomes($id=null){

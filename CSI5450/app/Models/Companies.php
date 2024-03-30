@@ -40,17 +40,31 @@ class Companies extends Eloquent
     }
     public function updateCompaniesBYAddingNewAgent($id, $agent){
 
-     
+    
         return self::raw(function($collection) use ($id, $agent) {
             $objectId = new ObjectId($id);
     
             // Check and add each agent only if it's not already in the array
+            // foreach ($agent as $agentData) {
+            //     $collection->updateOne(
+            //         ['_id' => $objectId, 'Agent.AgentId' => ['$ne' => $agentData['AgentId']]],
+            //         ['$push' => ['Agent' => $agentData]]
+            //     );
+            // }
+            $collection->updateOne(
+                ['_id' => $objectId],
+                ['$set' => ['Agent' => []]] 
+            );
+            
             foreach ($agent as $agentData) {
+                
+                // print_r($agentData);
                 $collection->updateOne(
                     ['_id' => $objectId, 'Agent.AgentId' => ['$ne' => $agentData['AgentId']]],
                     ['$push' => ['Agent' => $agentData]]
                 );
             }
+            // echo "asas";
         });
     }
 }

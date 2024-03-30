@@ -122,12 +122,17 @@
 </td>
                             <td> <a href="{{ route('homes.addoredit', $home->_id) }}" class="btn btn-xs btn-warning">Edit</a>
                                   <a href="{{ route('homes.add_appliances', $home->_id) }}" class="btn btn-xs btn-success">Add Appliances</a> 
-                                  @if($type=='for_sale' || $home->Status=='for_sale')
+                                  <!-- @if($type=='for_sale' || $home->Status=='for_sale')
                                   <a href="{{ route('homes.statuschange',['id' => $home->_id, 'status' => 'owned']) }}" class="btn btn-xs btn-warning">Moved to owner</a>
                                   @elseif($type=='owned'|| $home->Status=='owned')
                                 <a href="{{ route('homes.statuschange',['id' => $home->_id, 'status' => 'for_sale']) }}" class="btn btn-xs btn-warning">Available for sale</a>
+                                @endif -->
+                                @if($type=='for_sale' || $home->Status=='for_sale')
+                                <button type="button" class="btn btn-primary waves-effect waves-light add_owned" data-bs-toggle="modal" data-id="{{ $home->_id}}" data-bs-target=".bs-example-modal-center">Sale to owner</button>
+                                @elseif($type=='owned'|| $home->Status=='owned') 
+                                <button type="button" class="btn btn-primary waves-effect waves-light add_sale" data-bs-toggle="modal" data-id="{{ $home->_id}}" data-bs-target=".bs-example-modal-center">Available For sale</button>
                                 @endif
-                                </td>
+                              </td>
                             <!-- Add other fields as needed -->
                         </tr>
                     @endforeach
@@ -142,11 +147,66 @@
                         <!-- end row -->
                         <!-- end row -->
                         <!-- end page title -->
+                        <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Center modal</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <form action="{{ url('companies/addorupdateNewCompaniesForm') }}" method="post">
+   
+   @csrf
+   <!-- @if(isset($company->_id))
+      @method('PUT')
+   @endif -->
+   @if(isset($company->_id))
+      <input type="hidden" name="id" value="{{ $company->_id ?? '' }}">
+  @endif
+     
+    
+      <div class="mb-3 row">
+          <label for="example-text-input" class="col-md-2 col-form-label">Companies</label>
+          <div class="col-md-10">
+          <select class="form-control" data-trigger
+                          id=""
+                          placeholder="This is a placeholder" name="company" multiple>
+                          @foreach($companies as $company)
+                          <option value="{{$company->_id}}">{{$company->Name}}</option>  
+                          @endforeach
+                      </select>
+          </div>
+      </div>
+      <div class="mb-3 row">
+          <label for="example-text-input" class="col-md-2 col-form-label">Price</label>
+          <div class="col-md-10">
+              <input class="form-control" min="1"  step="0.01" type="number" value="" id="example-text-input" name="price" required>
+          </div>
+      </div>
+     
+      <div class="mt-4 pull-right">
+                          <button type="submit" class="btn btn-primary w-md">Submit</button>
+      </div>
+      </form>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div><!-- /.modal -->
 
 @include('.backend/main_layouts/footer_common')
      
 
-                        
+<script>
+  $(document).ready(function () {
+  "use strict";
+
+  $(".table").on("click", ".add_sale", function () {
+    var iid = $(this).attr("data-id");
+    alert(iid);
+  });
+});
+                          </script>                       
 
 
                     

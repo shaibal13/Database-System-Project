@@ -44,14 +44,24 @@ class Agents extends Eloquent
      
         return self::raw(function($collection) use ($id, $company) {
             $objectId = new ObjectId($id);
-    
-            // Check and add each agent only if it's not already in the array
+            $collection->updateOne(
+                ['_id' => $objectId],
+                ['$set' => ['company' => []]] 
+            );
+            
             foreach ($company as $companyData) {
+                
+                // print_r($agentData);
                 $collection->updateOne(
                     ['_id' => $objectId, 'company.CompanyId' => ['$ne' => $companyData['CompanyId']]],
                     ['$push' => ['company' => $companyData]]
                 );
             }
+         
+            // $collection->updateOne(
+            //     ['_id' => $objectId],
+            //     ['$pull' => ['company' => ['CompanyId' => ['$nin' => $company]]]]
+            // );
         });
     }
 }

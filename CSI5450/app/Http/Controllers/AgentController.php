@@ -59,33 +59,77 @@ class AgentController extends Controller
             $inserted_id_=(string)$inserted_id->getInsertedId();
             $message = 'New Agent added successfully!';
         }
-        if(!empty($request->companies)){
-        foreach($request->companies as $company) {
-            $companies=Companies::getCompanies($company);
-            $existed_agent=[];
-            if (isset($companies->Agent)) {
+        $all_company=Companies::getCompaniesDetails();
+
+        foreach($all_company as $companies){
+            $existed_agent_=array();
+           // $companies=Companies::getCompanies($company);
+           $existed_agent=array();
+           if (isset($companies->Agent)) {
                 foreach ($companies->Agent as $existed_companies) {
-                    // Convert each BSONDocument to an array
+                  
                     $existed_agent[] = json_decode(json_encode($existed_companies), true)['AgentId'];
+                  
                 }
             }
-            $existed_agent[]=$inserted_id_;
-            $existed_agent_ = array_map(function($agent) {
-                return ['AgentId' => $agent];
-            }, $existed_agent);
-           
-           
+            if(empty($request->companies)){
+                $update_agent=array();
+                $existed_agent_=array();
+                //print_r($$existed_agent);
+                $remove_agent_from_company_re_ = array_search($inserted_id_, $existed_agent, true);
+                // print_r($remove_agent_from_company_re_);
+                if ($remove_agent_from_company_re_ == True) {
+                    unset($existed_agent[$remove_agent_from_company_re_]);
+                    $update_agent = array_values($existed_agent);
+                   
+                    $existed_agent_=array();
+                    $existed_agent_ = array_map(function($agent) {
+                                    return ['AgentId' => $agent];
+                                }, $update_agent);
+                }
+            }else{
+                if(in_array($companies->_id,$request->companies)){
+                    $existed_agent[]=$inserted_id_;
+                    $uniqueagentIds=array();
+                    $uniqueagentIds = array_unique($existed_agent);
+    
+                    // If you want to re-index the array keys after filtering
+                    $uniqueagentIds = array_values($uniqueagentIds);
+    
+                    $existed_agent_=array();
+                    $existed_agent_ = array_map(function($agent) {
+                            return ['AgentId' => $agent];
+                    }, $uniqueagentIds);
+    
+                }else{
+                    $update_agent=array();
+                    //print_r($$existed_agent);
+                    $remove_agent_from_company_re_ = array_search($inserted_id_, $existed_agent, true);
+                    // print_r($remove_agent_from_company_re_);
+                    if ($remove_agent_from_company_re_ == True) {
+                        unset($existed_agent[$remove_agent_from_company_re_]);
+                        $update_agent = array_values($existed_agent);
+                        // echo "aa";
+                        // print_r($update_agent);
+                        $existed_agent_=array();
+                        $existed_agent_ = array_map(function($agent) {
+                                        return ['AgentId' => $agent];
+                                    }, $update_agent);
+                    }
+                   
+                }
+            }
+        
+          
             Companies::updateCompaniesBYAddingNewAgent($companies->_id,$existed_agent_);
-            
-        }
-    }
-       
+           }
+         
         return redirect()->to('agents')->with('success', $message);
     
     }
     public function destroy($id)
     {
-        $agent = Agents::find($id);
+        $agent =  Agents::getAgents($id);
         if ($agent) {
             $agent->delete();
             // 如果删除成功，则重定向到代理列表页并附带成功消息

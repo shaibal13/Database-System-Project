@@ -77,7 +77,7 @@
                                             <div class="col-md-10">
                                             <select class="form-control" data-trigger
                                                             id="choices-multiple-default"
-                                                            placeholder="This is a placeholder" name=agents[] multiple>
+                                                            placeholder="This is a placeholder" name="agents[]" multiple>
                                                             @foreach($agents as $agent)
                                                             <option value="{{$agent->_id}}"
                                                             @php
