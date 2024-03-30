@@ -131,4 +131,29 @@ class CompaniesController extends Controller
         return redirect()->to('companies')->with('success', $message);
       
     }
+    public function getAgentDetails($id=null){
+        $company_details=Companies::getCompanies($id);
+        $agent_list_id=array();
+        $agentsData=array();
+        foreach ($company_details->Agent as $agents) {
+                  
+            $agent_list_id[] = json_decode(json_encode($agents), true)['AgentId'];
+          
+        }
+        if(empty($agent_list_id)){
+            //
+        }else{
+            foreach($agent_list_id as $agent){
+                $agent_details=Agents::getAgents($agent);
+                if ($agent_details) {
+                    $agentsData[] = [
+                        'id' => (string) $agent_details->_id, 
+                        'name' => $agent_details->Name,
+                    ];
+                }
+                
+            }
+        }
+        return response()->json($agentsData);
+    }
 }

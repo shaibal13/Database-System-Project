@@ -7,26 +7,30 @@ use App\Models\Homes;
 use App\Models\Location;
 use App\Models\Appliances;
 use App\Models\Companies;
+use App\Models\Owners;
 class HomesController extends Controller
 {
     // Get all the home list
     public function index(){
         $homes=Homes::getHomeDetails();
         $companies=Companies::getCompaniesDetails();
+        $owners=Owners::getOwnersDetails();
         $type='all';
-        return view('homes_list',compact('homes','type','companies'));
+        return view('homes_list',compact('homes','type','companies','owners'));
     }
     public function forSale(){
         $type='for_sale';
         $homes=Homes::getHomeDetailsByAvailability($type);
         $companies=Companies::getCompaniesDetails();
-        return view('homes_list',compact('homes','type','companies'));
+        $owners=Owners::getOwnersDetails();
+        return view('homes_list',compact('homes','type','companies','owners'));
     }
     public function owned(){
         $type='owned';
         $homes=Homes::getHomeDetailsByAvailability($type);
         $companies=Companies::getCompaniesDetails();
-        return view('homes_list',compact('homes','type','companies'));
+        $owners=Owners::getOwnersDetails();
+        return view('homes_list',compact('homes','type','companies','owners'));
     }
 // Add new home and corresponding home
     public function addNewHomes($id=null){
@@ -70,7 +74,7 @@ class HomesController extends Controller
             'LandSize' => $request->LandSize,
             'YearConstructed' => $request->YearConstructed,
             'Type' => $type,
-            'Status' => $request->home_status
+            // 'Status' => $request->home_status
             
         ];
         if ($request->id) {
@@ -108,7 +112,25 @@ class HomesController extends Controller
         return redirect()->to('homes')->with('success', $message);
       
     }
+  public function addtosale(Request $request){
+    $id=$request->home_id;
+    $data=array();
+    $data=[
+        'AgentId'=>$request->agent,
+        'companyId'=>$request->company,
+        'Status'=>'for_sale',
+        'price'=>$request->price
 
+    ];
+   
+    Homes::updateHome($id,$data);
+    $message = 'Home available for sale!';
+    return redirect()->to('homes/forSale')->with('success', $message);
+  }
+  public function saledetails($id=null){
+    $homes = Homes::getHome($id);
+    return response()->json($homes);
+  }
     //Change the status
     public function statuschange($id=null, $status=null){
         $data=array();

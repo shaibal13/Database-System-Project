@@ -7,6 +7,7 @@ use App\Http\Controllers\HomesController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AppliancesController;
 use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\SaleshistoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,11 +44,17 @@ Route::get('homes', [HomesController::class, 'index']);
 Route::get('homes/forSale', [HomesController::class, 'forSale']);
 Route::get('homes/owned', [HomesController::class, 'owned']);
 Route::get('homes/statuschange/{id?}/{status?}', [HomesController::class, 'statuschange'])->name('homes.statuschange');
-
+Route::post('homes/addtosale', [HomesController::class, 'addtosale']);
+Route::get('/homes/saledetails/{id}', [HomesController::class, 'saledetails'])->name('homes.saledetails');
 
 Route::get('companies', [CompaniesController::class, 'index']);
 Route::get('companies/addNewCompanies/{id?}', [CompaniesController::class, 'addNewCompanies'])->name('companies.addoredit');
 Route::post('companies/addorupdateNewCompaniesForm', [CompaniesController::class, 'addorupdateNewCompaniesForm']);
+Route::get('/company/getAgentDetails/{id}', [CompaniesController::class, 'getAgentDetails'])->name('company.getAgentDetails');
+
+
+Route::post('/sale', [SaleshistoryController::class, 'addSale']);
+Route::get('/salehistory', [SaleshistoryController::class, 'index']);
 // Route::resource('posts', AgentController::class)->only([
 //     'destroy', 'show', 'store', 'update'
 //  ]);

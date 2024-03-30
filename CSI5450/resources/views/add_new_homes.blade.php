@@ -92,7 +92,7 @@
                                                 <input class="form-control" type="number"  min="1900" max="2099"  value="{{ $homes->YearConstructed ?? '' }}" id="example-text-input" name="YearConstructed" required>
                                             </div>
                                         </div>
-                                        <div class="mb-3 row">
+                                        <!-- <div class="mb-3 row">
                                             <label for="example-text-input" class="col-md-2 col-form-label">Status</label>
                                             <div class="col-md-10">
                                                   <select class="form-control" data-trigger name="home_status"
@@ -107,7 +107,7 @@
                                                         </select>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                         <h5> Location</h5>
                                         <div class="mb-3 row">
                                             <div class="col-lg-3">

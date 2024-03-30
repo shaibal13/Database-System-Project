@@ -132,6 +132,20 @@
             <li>
                 <a href="javascript: void(0);" class="has-arrow">
                     <i class="bx bx-store icon nav-icon"></i>
+                    <span class="menu-item" data-key="t-ecommerce">Sales</span>
+                </a>
+                
+                <ul class="sub-menu" aria-expanded="false">
+                    <!-- <li><a href="{{ route('homes.addoredit') }}" data-key="t-products">Add New Homes</a></li> -->
+                    <li><a href="/salehistory" data-key="">All Sales</a></li>
+                   
+                    <!-- <li><a href="{{ route('homes.add_appliances') }}" data-key="t-products">New Appliances to home</a></li> -->
+                   
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);" class="has-arrow">
+                    <i class="bx bx-store icon nav-icon"></i>
                     <span class="menu-item" data-key="t-ecommerce">Owners</span>
                 </a>
                 
