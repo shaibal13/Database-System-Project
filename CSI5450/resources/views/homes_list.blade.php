@@ -204,6 +204,7 @@
                       <div class="col-md-10">
                         <select class="form-control" id="agent_choose" placeholder="This is a placeholder" name="agent" required>
                           <option value="">Select Agent</option>
+                          
 
                         </select>
                       </div>
