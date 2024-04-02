@@ -109,7 +109,8 @@
                           <td>
 
                             @php
-                            $owner_details=\App\Models\Owners::getOwners($home->OwnerId);
+                            $ownerModel=new \App\Models\Owners();
+                            $owner_details=$ownerModel->getOwners($home->OwnerId);
                             echo $owner_details->Name;
 
                             @endphp

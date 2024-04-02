@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -92,7 +92,7 @@ return [
         ],
         'mongodb'=>[
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI','mongodb+srv://username:password@csi5450.bhpiwf5.mongodb.net/'),
+            'dsn' => env('DB_URI','mongodb://fan:123@localhost:27017/CSI5450_project'),
             'database' => env('DB_DATABASE','mytest'),
         ],
     ],

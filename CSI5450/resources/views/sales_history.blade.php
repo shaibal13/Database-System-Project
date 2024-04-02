@@ -41,7 +41,7 @@
                   <div class="card-header table_header">
                     <!-- <div class="col-lg-10"> -->
                         <div class="row">
-                    <h4 class="card-title col-lg-8">Appliances List</h4>
+                    <h4 class="card-title col-lg-8">Sales History</h4>
                  <!-- </div> -->
                     
 </div>
@@ -71,16 +71,19 @@
                         <tbody>
                         @php $i = 1; @endphp
                         @foreach($sales_details as $sale)
-
+                            @php $homes=  new \App\Models\Homes(); 
+                             $owners=  new \App\Models\Owners(); 
+                            $agents=  new  \App\Models\Agents(); 
+                             $companies=  new  \App\Models\Companies(); @endphp
                         <tr>
-                            <td>{{ \App\Models\Homes::getHome($sale->HomeId)->HomeID }}</td>
-                            <td>{{  \App\Models\Owners::getOwners($sale->OwnerId)->Name }}</td>
-                            <td>{{ !empty($sale->PreviousOwnerId)? \App\Models\Owners::getOwners($sale->PreviousOwnerId)->Name:"" }}</td>
+                            <td>{{ $homes->getHome($sale->HomeId)->HomeID }}</td>
+                            <td>{{ $owners->getOwners($sale->OwnerId)->Name }}</td>
+                            <td>{{ !empty($sale->PreviousOwnerId)? $owners->getOwners($sale->PreviousOwnerId)->Name:"" }}</td>
                            
-                            <td>{{  \App\Models\Agents::getAgents($sale->Agent)->Name }}</td>
-                            <td>{{  \App\Models\Companies::getCompanies($sale->Company)->Name }}</td>
+                            <td>{{  $agents->getAgents($sale->Agent)->Name }}</td>
+                            <td>{{  $companies->getCompanies($sale->Company)->Name }}</td>
                             <td>{{  $sale->price }}</td>
-                            <td>{{ Date('M-D-Y',$sale->date_saling) }}</td>
+                            <td>{{ Date('m-d-Y',$sale->date_saling) }}</td>
                             <td>{{  $sale->agentcommision }}</td>
                             
                             <!-- Add other fields as needed -->

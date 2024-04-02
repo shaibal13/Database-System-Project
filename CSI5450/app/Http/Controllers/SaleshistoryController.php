@@ -54,8 +54,8 @@ class SaleshistoryController extends Controller
                 "AgentId"=>"",
                 "companyId"=>""
             ];
-            $homeModel = Homes::find($home_id);
-            $homeModel->updateHome($home_id,$data_home);
+           // $homeModel = Homes::find($home_id);
+            $homesModel->updateHome($home_id,$data_home);
             //Homes::updateHome($home_id,$data_home);
             $message = 'Home sold!';
         }else{
