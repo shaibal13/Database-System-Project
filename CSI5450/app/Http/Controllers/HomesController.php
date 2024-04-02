@@ -169,9 +169,16 @@ class HomesController extends Controller
             'price' => $request->price
 
         ];
-
-        Homes::updateHome($id, $data);
-        $message = 'Home available for sale!';
+        $home = Homes::find($id);
+        if ($home) {
+            // call the method
+            $home->updateHome($id,$data);
+            $message = 'Home available for sale!';
+        } else {
+            $message = 'Home not found!';
+        }
+        // Homes::updateHome($id, $data);
+        // $message = 'Home available for sale!';
         return redirect()->to('homes/forSale')->with('success', $message);
     }
     public function saledetails($id = null)
