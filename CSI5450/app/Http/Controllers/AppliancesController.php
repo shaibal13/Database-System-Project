@@ -9,16 +9,19 @@ class AppliancesController extends Controller
 {
     //
     public function index(){
-        $appliances=Appliances::getAppliancesDetails();
+        $appliances_object=new Appliances();
+        $appliances=$appliances_object->getAppliancesDetails();
         return view('appliances_list',compact('appliances'));
     }
     public function addNewAppliances($id=null){
-        $appliances = $id ? Appliances::getAppliances($id) : new Appliances;
+        $appliances_object=new Appliances();
+        $appliances = $id ? $appliances_object->getAppliances($id) : new Appliances;
 
         return view('add_new_appliances',compact('appliances'));
     }
     public function addorupdateNewApplianceForm(Request $request)
     {
+        $appliances_object=new Appliances();
         $data = [
             'ModelName' => $request->ModelName, 
             'Year' => $request->Year,
@@ -28,12 +31,12 @@ class AppliancesController extends Controller
         ];
         if ($request->id) {
  
-            Appliances::updateAppliances($request->id,$data);
+            $appliances_object->updateAppliances($request->id,$data);
             // $appliances->save();
             $message = 'Appliances updated successfully!';
         } else {
         
-            Appliances::addAppliances($data);
+            $appliances_object->addAppliances($data);
             $message = 'New Aappliances added successfully!';
         }
     
@@ -41,7 +44,8 @@ class AppliancesController extends Controller
       
     }
     public function findHomebyMaker(Request $request){
-        $maker=Appliances::get_unique_maker_list(); 
+        $appliances_object=new Appliances();
+        $maker=$appliances_object->get_unique_maker_list(); 
         if ($request->isMethod('get'))
         {
             $homes=array();
@@ -50,8 +54,8 @@ class AppliancesController extends Controller
         if ($request->isMethod('post'))
         {
             $maker_name=$request->appliances_maker;
-         
-            $homes=Homes::findAllHomesUsedBySameMaker($maker_name);
+            $homes_ob=new Homes();
+            $homes=$homes_ob->findAllHomesUsedBySameMaker($maker_name);
            
             return view('find_appliances_home',compact('maker','maker_name','homes'));
         }

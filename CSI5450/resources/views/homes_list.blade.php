@@ -103,7 +103,7 @@
                           <td>{{ $home->HomeID }}</td>
                           <td>{{ $home->FloorSpace }}</td>
                           @php
-                          if($home->Status == 'owned'){
+                          if($type == 'owned'){
 
                           @endphp
                           <td>

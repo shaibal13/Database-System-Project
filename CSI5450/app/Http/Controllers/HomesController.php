@@ -183,7 +183,8 @@ class HomesController extends Controller
     }
     public function saledetails($id = null)
     {
-        $homes = Homes::getHome($id);
+        $homes_ob=new Homes();
+        $homes = $homes_ob->getHome($id);
         return response()->json($homes);
     }
     //Change the status
@@ -194,8 +195,8 @@ class HomesController extends Controller
 
             'Status' => $status
         ];
-
-        Homes::updateHome($id, $data);
+        $homes_ob=new Homes();
+        $homes_ob->updateHome($id, $data);
         if ($status == "owned") {
             $message = 'Homes moved to owner successfully!';
             return redirect()->to('homes/owned')->with('success', $message);
@@ -207,8 +208,10 @@ class HomesController extends Controller
     //Add appliances to Home
     public function addAppliancesToHome($id = null)
     {
-        $homes = Homes::getHome($id);
-        $appliances = Appliances::getAppliancesDetails();
+        $homes_ob=new Homes();
+        $homes =$homes_ob->getHome($id);
+        $appliances_object=new Appliances();
+        $appliances =$appliances_object->getAppliancesDetails();
 
         $existed_appliances = [];
         if (isset($homes->Appliances)) {
@@ -231,8 +234,8 @@ class HomesController extends Controller
             return ['ModelName' => $modelName];
         }, $request->appliances);
         // print_r($appliances);
-
-        $added_appliances = Homes::addAppliancesToHome($id, $appliances);
+        $homes_ob=new Homes();
+        $added_appliances =  $homes_ob->addAppliancesToHome($id, $appliances);
         return redirect()->to('homes')->with('success', 'Appliances added successfully');
         // print_r($request->appliances);
     }
