@@ -40,7 +40,7 @@ Route::get('homes/addNewHomes/{id?}', [HomesController::class, 'addNewHomes'])->
 Route::get('homes/addAppliancesToHome/{id?}', [HomesController::class, 'addAppliancesToHome'])->name('homes.add_appliances');
 Route::post('homes/addorupdateNewHomeForm', [HomesController::class, 'addorupdateNewHomeForm']);
 Route::post('homes/addorupdateNewApplianceForm', [HomesController::class, 'addorupdateNewApplianceForm']);
-Route::get('homes', [HomesController::class, 'index']);
+Route::any('homes', [HomesController::class, 'index']);
 Route::get('homes/forSale', [HomesController::class, 'forSale']);
 Route::get('homes/owned', [HomesController::class, 'owned']);
 Route::get('homes/statuschange/{id?}/{status?}', [HomesController::class, 'statuschange'])->name('homes.statuschange');

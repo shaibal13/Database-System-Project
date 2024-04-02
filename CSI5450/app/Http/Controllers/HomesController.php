@@ -12,27 +12,32 @@ use App\Models\Owners;
 class HomesController extends Controller
 {
     // Get all the home list
-    public function index()
+    public function index(Request $request)
     {
-        $homesModel = new Homes();
-        $homes = $homesModel->getHomeDetails();
-        //$homes=Homes::getHomeDetails();
-        $companiesModel = new Companies();
-        $companies = $companiesModel->getCompaniesDetails();
-        //$companies=Companies::getCompaniesDetails();
-        $ownersModel = new Owners();
-        $owners = $ownersModel->getOwnersDetails();
-        //$owners=Owners::getOwnersDetails();
-        $type = 'all';
-        // Get the locations in a single call if possible
-        $locations = [];
-        foreach ($homes as $home) {
-            if (isset($home->LocationId)) {
-                $locationModel = new Location();
-                $locations[$home->_id] = $locationModel->getLocation($home->LocationId);
+        if ($request->isMethod('get'))
+        {
+            $homesModel = new Homes();
+            $homes = $homesModel->getHomeDetails();
+            //$homes=Homes::getHomeDetails();
+            $companiesModel = new Companies();
+            $companies = $companiesModel->getCompaniesDetails();
+            //$companies=Companies::getCompaniesDetails();
+            $ownersModel = new Owners();
+            $owners = $ownersModel->getOwnersDetails();
+            //$owners=Owners::getOwnersDetails();
+            $type = 'all';
+            // Get the locations in a single call if possible
+            $locations = [];
+            foreach ($homes as $home) {
+                if (isset($home->LocationId)) {
+                    $locationModel = new Location();
+                    $locations[$home->_id] = $locationModel->getLocation($home->LocationId);
             }
         }
         return view('homes_list', compact('homes', 'locations', 'type', 'companies', 'owners'));
+
+        }
+
         //return view('homes_list', compact('homes', 'type', 'companies', 'owners'));
     }
     public function forSale()
