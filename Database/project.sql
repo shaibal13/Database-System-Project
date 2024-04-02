@@ -155,8 +155,8 @@ db.Homes.insertMany ([
 -- Create SaleHistory
 -- BuyerID is OwnerID
 db.createCollection("SaleHistory",{capped:true,size:10000,max:1000})
-db.SaleHistory.insertOne({
-  HomeID: "00001",
+db.SaleHistory.({
+  HomeID: "00001",insertOne
   AgentID:  "0001",
   BuyerID: "001",
   CompanyName: "Company A",
@@ -252,11 +252,11 @@ db.SaleHistory.aggregate([
 ])
 
 -- Q4
-db.Homes.aggregate([
+db.homes.aggregate([
   {
     $lookup: {
-      from: "Appliances",
-      localField: "Appliances.ModelName",
+      from: "appliances",
+      localField: "appliances.ModelName",
       foreignField: "ModelName",
       as: "ApplianceDetails"
     }

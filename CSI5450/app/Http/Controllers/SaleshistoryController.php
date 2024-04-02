@@ -13,7 +13,8 @@ class SaleshistoryController extends Controller
 {
     //
     public function index(){
-        $sales_details=Saleshistory::getSaleHistoryDetails();
+        $saleshis=new Saleshistory();
+        $sales_details=$saleshis->getSaleHistoryDetails();
         return view('sales_history',compact('sales_details'));
     }
     public function addSale(Request $request){
