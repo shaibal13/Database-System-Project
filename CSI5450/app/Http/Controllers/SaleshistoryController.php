@@ -13,16 +13,20 @@ class SaleshistoryController extends Controller
 {
     //
     public function index(){
-        $saleshis=new Saleshistory();
-        $sales_details=$saleshis->getSaleHistoryDetails();
+        $sales_details=Saleshistory::getSaleHistoryDetails();
         return view('sales_history',compact('sales_details'));
     }
     public function addSale(Request $request){
         $owner=$request->owner;
         $price=$request->price_;
         $home_id=$request->home_id_;
-        $home_details=Homes::getHome($home_id);
-        $company_details=Companies::getCompanies($home_details->companyId);
+
+        $homesModel = new Homes();
+        $home_details = $homesModel->getHome($home_id);
+        //$home_details=Homes::getHome($home_id);
+        $companiesModel = new Companies();
+        $company_details = $companiesModel->getCompanies($home_details->companyId);
+        //$company_details=Companies::getCompanies($home_details->companyId);
         $agent_commision=( $home_details->price*$company_details->Percentage)/100;
         $data_sale=array();
         $data_sale=[
@@ -37,7 +41,9 @@ class SaleshistoryController extends Controller
 
         ];
        
-        $sale=Saleshistory::addSalesHistory($data_sale);
+        $saleshistoryModel = new Saleshistory();
+        $sale = $saleshistoryModel->addSalesHistory($data_sale);
+        //$sale=Saleshistory::addSalesHistory($data_sale);
         if($sale){
             $data_home=array();
             $data_home=[
@@ -47,7 +53,9 @@ class SaleshistoryController extends Controller
                 "AgentId"=>"",
                 "companyId"=>""
             ];
-            Homes::updateHome($home_id,$data_home);
+            $homeModel = Homes::find($home_id);
+            $homeModel->updateHome($home_id,$data_home);
+            //Homes::updateHome($home_id,$data_home);
             $message = 'Home sold!';
         }else{
             $message = 'Check the error!';

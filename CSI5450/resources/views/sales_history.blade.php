@@ -6,7 +6,7 @@
         <div id="layout-wrapper">
 
         @include('.backend/main_layouts/header')
-     
+    
             <!-- ========== Left Sidebar Start ========== -->
 
         @include('.backend/main_layouts/sidebar')
