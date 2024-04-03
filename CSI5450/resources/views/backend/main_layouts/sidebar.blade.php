@@ -125,6 +125,7 @@
                     <li><a href="/homes" data-key="">Homes List</a></li>
                     <li><a href="/homes/forSale" data-key="">For Sale</a></li>
                     <li><a href="/homes/owned" data-key="">Owned Homes</a></li>
+                    <li><a href="{{ route('homes.previousOwner') }}" data-key="t-products">Previous Owners</a></li>
                     <!-- <li><a href="/homes/owned" data-key="">Owned Homes</a></li> -->
                     <!-- <li><a href="{{ route('homes.add_appliances') }}" data-key="t-products">New Appliances to home</a></li> -->
                    

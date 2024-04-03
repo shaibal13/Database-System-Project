@@ -46,6 +46,7 @@ Route::get('homes/owned', [HomesController::class, 'owned']);
 Route::get('homes/statuschange/{id?}/{status?}', [HomesController::class, 'statuschange'])->name('homes.statuschange');
 Route::post('homes/addtosale', [HomesController::class, 'addtosale']);
 Route::get('/homes/saledetails/{id}', [HomesController::class, 'saledetails'])->name('homes.saledetails');
+Route::any('homes/previousOwner', [HomesController::class, 'previousOwner'])->name('homes.previousOwner');
 
 Route::get('companies', [CompaniesController::class, 'index']);
 Route::get('companies/addNewCompanies/{id?}', [CompaniesController::class, 'addNewCompanies'])->name('companies.addoredit');

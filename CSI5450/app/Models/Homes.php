@@ -147,4 +147,51 @@ class Homes extends Eloquent
             ]);
         });
     }
+
+    public function findThePreviousOwner($homeId){
+        return self::raw(function($collection) use ($homeId) {
+            $objectId = new ObjectId($homeId); 
+
+            return $collection->aggregate([
+                [
+                    '$match' => [
+                        'HomeId' => $objectId,
+                        // Ensure the document fetched does not represent a current ownership transfer
+                        '$expr' => [
+                            '$ne' => ['$PreviousOwnerId', '$OwnerId']
+                        ]
+                    ],
+                ],
+                [
+                    '$lookup' => [
+                        // Join with the 'owners' collection to get previous owner details
+                        'from' => 'owners',
+                        'localField' => 'PreviousOwnerId',
+                        'foreignField' => '_id',
+                        'as' => 'PreviousOwnerDetails'
+                    ]
+                ],
+                [
+                    '$unwind' => [
+                        
+                        'path' => '$PreviousOwnerDetails',
+                        'preserveNullAndEmptyArrays' => true // Handle cases where there's no previous owner
+                    ]
+                ],
+                [
+                    '$project' => [
+                        'PreviousOwnerDetails' => 1,
+                    ]
+                ],
+                [
+                    '$match' => [
+                        'PreviousOwnerDetails' => [
+                            '$ne' => null
+                        ]
+                    ]
+                ]
+            ]);
+        });
+        
+    }
 }
