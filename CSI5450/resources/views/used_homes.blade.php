@@ -61,7 +61,8 @@
                                                 </tr>
                                                 @empty
                                                 <tr>
-                                                    <td colspan="8">No used homes found.</td>
+                                               
+                                                    <td colspan="8" class="text-center">No used homes found.</td>
                                                 </tr>
                                                 @endforelse
                                             </tbody>

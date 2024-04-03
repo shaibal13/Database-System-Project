@@ -73,4 +73,5 @@ class OwnersController extends Controller
     }
     return view('find_previous_owner',compact('homes','owners','home_id','home_details'));
     }
+    
 }
