@@ -18,6 +18,11 @@ class Location extends Eloquent
         });
        
     }
+    public function getLocationBycity($city){
+        return self::raw(function($collection) use ($city) {
+            return $collection->find(['City' => $city]);
+        });
+    }
     public function getLocationDetails() {
         return self::raw(function($collection) {
             // The find method returns a cursor for the documents
@@ -38,4 +43,11 @@ class Location extends Eloquent
             );
         });
     }
+    public function get_unique_maker_list() {
+       
+        return self::raw(function($collection) {
+            return $collection->distinct('City');
+        });
+    }
+   
 }

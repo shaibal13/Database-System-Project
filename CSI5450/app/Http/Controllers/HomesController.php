@@ -14,59 +14,83 @@ class HomesController extends Controller
     // Get all the home list
     public function index(Request $request)
     {
+        $homesModel = new Homes();
+        $companiesModel = new Companies();
+        $ownersModel = new Owners();
+        $locationModel = new Location();
+        $cities=$locationModel->get_unique_maker_list();
+        $bedrooms=$homesModel->get_unique_maker_list('BedRooms'); //BedRooms
+        $bathrooms=$homesModel->get_unique_maker_list('BathRooms'); //BedRooms
+        $owners = $ownersModel->getOwnersDetails();
+        $companies = $companiesModel->getCompaniesDetails();
+
+        // For getting the output
+        $city_select='';
+        $owner_select='';
+        $price='';
+        $no_of_bedroom='';
+        $no_of_bathroom='';
+        $home_status='';
         if ($request->isMethod('get'))
         {
-            $homesModel = new Homes();
+                 
             $homes = $homesModel->getHomeDetails();
-            //$homes=Homes::getHomeDetails();
-            $companiesModel = new Companies();
-            $companies = $companiesModel->getCompaniesDetails();
-            //$companies=Companies::getCompaniesDetails();
-            $ownersModel = new Owners();
-            $owners = $ownersModel->getOwnersDetails();
-            //$owners=Owners::getOwnersDetails();
-            $type = 'all';
-            // Get the locations in a single call if possible
-            $locations = [];
-            foreach ($homes as $home) {
-                if (isset($home->LocationId)) {
-                    $locationModel = new Location();
-                    $locations[$home->_id] = $locationModel->getLocation($home->LocationId);
+            $type = 'all'; 
+
+        }
+        if($request->isMethod('POST')) {
+
+            $city_select=$request->city;
+            $owner_select=$request->owner;
+            $price=$request->price;
+            $no_of_bedroom=$request->no_of_bedroom;
+           
+            $no_of_bathroom=$request->no_of_bathroom;
+            $home_status=$request->home_status;
+            
+            if($city_select!='all') {
+                
+                $homes = $homesModel->filterHomeListForCustomLocation($city_select,$owner_select, $price, $no_of_bedroom,$no_of_bathroom, $home_status);
+                
+            }else{
+                $homes = $homesModel->filterHomeListForAll($owner_select, $price, $no_of_bedroom,$no_of_bathroom, $home_status);
             }
-        }
-        return view('homes_list', compact('homes', 'locations', 'type', 'companies', 'owners'));
 
+           
+            $type = 'all'; 
+            
         }
+        return view('homes_list', compact('homes', 'type', 'companies', 'owners','cities','bedrooms','bathrooms','city_select','owner_select','price','no_of_bedroom','no_of_bathroom','home_status'));
 
-        //return view('homes_list', compact('homes', 'type', 'companies', 'owners'));
+      
     }
     public function forSale()
     {
         $type = 'for_sale';
         $homesModel = new Homes();
         $homes = $homesModel->getHomeDetailsByAvailability($type);
-        //$homes=Homes::getHomeDetailsByAvailability($type);
+        
         $companiesModel = new Companies();
         $companies = $companiesModel->getCompaniesDetails();
-        //$companies = Companies::getCompaniesDetails();
+        
         $ownersModel = new Owners();
         $owners = $ownersModel->getOwnersDetails();
-        //$owners = Owners::getOwnersDetails();
-        return view('homes_list', compact('homes', 'type', 'companies', 'owners'));
+       
+        return view('owned_sale_list', compact('homes', 'type', 'companies', 'owners'));
     }
     public function owned()
     {
         $type = 'owned';
         $homesModel = new Homes();
         $homes = $homesModel->getHomeDetailsByAvailability($type);
-        //$homes=Homes::getHomeDetailsByAvailability($type);
+       
         $companiesModel = new Companies();
         $companies = $companiesModel->getCompaniesDetails();
-        //$companies=Companies::getCompaniesDetails();
+       
         $ownersModel = new Owners();
         $owners = $ownersModel->getOwnersDetails();
-        //$owners=Owners::getOwnersDetails();
-        return view('homes_list', compact('homes', 'type', 'companies', 'owners'));
+        
+        return view('owned_sale_list', compact('homes', 'type', 'companies', 'owners'));
     }
     // Add new home and corresponding home
     public function addNewHomes($id = null)

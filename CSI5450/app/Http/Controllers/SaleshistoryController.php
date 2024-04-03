@@ -50,7 +50,7 @@ class SaleshistoryController extends Controller
             $data_home=[
                 'OwnerId'=>$owner,
                 'Status'=>'owned',
-                'price'=>"",
+                'price'=> $home_details->price,
                 "AgentId"=>"",
                 "companyId"=>""
             ];

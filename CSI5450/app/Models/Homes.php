@@ -194,4 +194,131 @@ class Homes extends Eloquent
         });
         
     }
+    public function get_unique_maker_list($attribute_name) {
+       
+        return self::raw(function($collection) use ($attribute_name) {
+            return $collection->distinct($attribute_name);
+        });
+    }
+    public function filterHomeListForCustomLocation($city,$owner, $minPrice, $bedrooms,$bathrooms, $status){
+        // $locationIdsToString = $locationIds->map(function ($id) {
+        //     return (string) $id;
+        // });
+
+        $pipeline = [];
+
+        $pipeline[] = [
+            '$lookup' => [
+                'from' => 'locations', 
+                'localField' => 'LocationId', 
+                'foreignField' => '_id', 
+                'as' => 'location' 
+            ]
+        ];
+        $pipeline[] = [
+            '$unwind' => [
+                'path' => '$location',
+                'preserveNullAndEmptyArrays' => true // Keep homes without a location
+            ]
+        ];
+        // Match on city name if it's not all
+        if ($city !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'location.City' => $city
+                ]
+            ];
+        }
+        // Filter on owner's name if provided
+        if ($owner !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'OwnerId' => $owner
+                ]
+            ];
+        }
+        if ($minPrice > 0 ||$minPrice > '0') {
+            $pipeline[] = [
+                '$match' => [
+                    'price' => [
+                        '$ne' => '',
+                        '$lt' => $minPrice
+                    ]
+                ]
+            ];
+        }
+        if ($bedrooms !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'BedRooms' => $bedrooms
+                ]
+            ];
+        }
+        if ($bathrooms !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'BathRooms' => $bathrooms
+                ]
+            ];
+        }
+        if ($status !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'Status' => $status
+                ]
+            ];
+        }
+      
+        return self::raw(function($collection) use ($pipeline) {
+            return $collection->aggregate($pipeline);
+        });
+    }
+    public function filterHomeListForAll($owner, $minPrice, $bedrooms,$bathrooms, $status){
+        $pipeline = [];
+
+       
+        // Filter on owner's name if provided
+        if ($owner !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'OwnerId' => $owner
+                ]
+            ];
+        }
+        if ($minPrice > 0 ||$minPrice > '0') {
+            $pipeline[] = [
+                '$match' => [
+                    'price' => [
+                        '$ne' => '',
+                        '$lt' => $minPrice
+                    ]
+                ]
+            ];
+        }
+        if ($bedrooms !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'BedRooms' => $bedrooms
+                ]
+            ];
+        }
+        if ($bathrooms !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'BathRooms' => $bathrooms
+                ]
+            ];
+        }
+        if ($status !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'Status' => $status
+                ]
+            ];
+        }
+      
+        return self::raw(function($collection) use ($pipeline) {
+            return $collection->aggregate($pipeline);
+        });
+    }
 }

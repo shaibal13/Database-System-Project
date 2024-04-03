@@ -36,6 +36,174 @@
             </div>
           </div>
           <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Home filter</h4>
+                                        <!-- <p class="card-title-desc">Here are examples of <code>.form-control</code> applied to each
+                                            textual HTML5 <code>&lt;input&gt;</code> <code>type</code>.</p> -->
+                                    </div>
+                                    <div class="card-body">
+                                     <!-- <form action="{{ url('owners/addNewOwners')}}" method="post"> -->
+                                     <!-- <form action="{{ isset($owner->id) ? url('owners/update/' . $owner->id) : url('owners/addNewOwners') }}" method="post"> -->
+                                     <form action="{{ url('homes')}}" method="post">
+   
+                                     @csrf
+                                     <!-- @if(isset($owner->_id))
+                                        @method('PUT')
+                                     @endif -->
+                                     <!-- @if(isset($homes->_id))
+                                        <input type="hidden" name="id" value="{{$homes->_id}}">
+                                    @endif -->
+                                    <div class="row">
+                                                <div class="col-2">
+                                                    <div class="mb-3">
+                                                        <label for="choices-single-default" class="form-label font-size-13 text-muted">City</label>
+                                                        <select class="form-control" data-trigger name="city"
+                                                            id="choices-single-default"
+                                                            placeholder="This is a search placeholder" required>
+                                                            <option value="all" 
+                                                            @php
+                                                            if($city_select=='all' || $city_select==''){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp 
+                                                            
+                                                            
+                                                            >All</option>
+                                                          @foreach($cities as $city)
+                                                            <option value="{{$city}}"
+                                                            @php
+                                                            if($city_select==$city){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp 
+                                                            >{{$city}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="mb-3">
+                                                        <label for="choices-single-default" class="form-label font-size-13 text-muted">Owner</label>
+                                                        <select class="form-control" data-trigger name="owner"
+                                                            id="choices-single-default"
+                                                            placeholder="This is a search placeholder" required>
+                                                            <option value="all"  @php
+                                                            if($owner_select=='all' || $owner_select==''){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp >All</option>
+                                                          @foreach($owners as $owner)
+                                                            <option value="{{$owner->_id}}"  
+                                                            @php
+                                                            if($owner->_id==$owner_select){
+                                                              echo 'selected';
+                                                            } @endphp
+                                                            >{{$owner->Name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-1">
+                                                    <div class="mb-3">
+                                                        <label for="choices-single-default" class="form-label font-size-13 text-muted">Min Price</label>
+                                                        <input class="form-control" type="number" step=0.01 value="{{$price==0||$price==''?0:$price }}" id="example-text-input" name="price" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="mb-3">
+                                                        <label for="choices-single-default" class="form-label font-size-13 text-muted">#Bedrooms</label>
+                                                        <select class="form-control" data-trigger name="no_of_bedroom"
+                                                            id="choices-single-default"
+                                                            placeholder="This is a search placeholder" required>
+                                                            <option value="all"  @php
+                                                            if($no_of_bedroom=='all' || $no_of_bedroom==''){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp>All</option>
+                                                           
+                                                            @foreach($bedrooms as $bed)
+                                                            <option value="{{$bed}}" 
+                                                            @php
+                                                            if($bed==$no_of_bedroom){
+                                                              echo 'selected';
+                                                            } @endphp
+                                                            >{{$bed}}</option>
+                                                       @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="mb-3">
+                                                        <label for="choices-single-default" class="form-label font-size-13 text-muted">#Bathrooms</label>
+                                                        <select class="form-control" data-trigger name="no_of_bathroom"
+                                                            id="choices-single-default"
+                                                            placeholder="This is a search placeholder" required>
+                                                            <option value="all"  @php
+                                                            if($no_of_bathroom=='all' || $no_of_bathroom==''){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp>All</option>
+                                                           
+                                                           @foreach($bathrooms as $bath)p
+                                                            <option value="{{$bath}}" 
+                                                            @php
+                                                            if($bath==$no_of_bathroom){
+                                                              echo 'selected';
+                                                            } @endphp
+                                                            >{{$bath}}</option>
+                                                        @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                      <div class="mb-3">
+                                                      <label for="choices-single-default" class="form-label font-size-13 text-muted">Status</label>
+                                                        
+                                                              <select class="form-control" data-trigger name="home_status"
+                                                                        id="choices-single-default"
+                                                                        placeholder="This is a search placeholder" required>
+                                                                        <option value="all"  @php
+                                                            if($home_status=='all' || $home_status==''){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp >All</option>
+                                                                        <option value="for_sale"  @php
+                                                            if($home_status=='for_sale'){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp>For Sale</option>
+                                                                        <option value="owned"  @php
+                                                            if($home_status=='owned'){
+                                                              echo 'selected';
+                                                            }
+                                                            
+                                                            @endphp>Owned</option>
+                                                                        
+                                                                    </select>
+                                           
+
+                                        </div>
+                                                </div>
+                                                <div class="col-1 pull-right" style="margin-top: 2%;">
+                                                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                                        </div>
+                                    </div>
+                                     
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+          <div class="row">
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header table_header">
