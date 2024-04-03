@@ -337,6 +337,7 @@ db.SaleHistory.aggregate([
   }}
 ]);
 
+
 -- Q7
 db.Homes.aggregate([
   { $group: {
