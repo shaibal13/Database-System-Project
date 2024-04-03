@@ -21,4 +21,25 @@ class Saleshistory extends Eloquent
             return $collection->find();
         });
     }
+    public function getCommission($agentId){
+        return self::raw(function($collection) use ($agentId) {
+            $result = $collection->aggregate([
+                [
+                    '$match' => [
+                        'Agent' => $agentId
+                    ]
+                ],
+                [
+                    '$group' => [
+                        '_id' => "$agentId", 
+                        'totalCommission' => [
+                            '$sum' => '$agentcommision' 
+                        ]
+                    ]
+                ]
+            ])->toArray();
+
+            return $result[0]['totalCommission'] ?? 0;
+        });
+    }
 }

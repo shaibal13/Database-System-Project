@@ -46,16 +46,24 @@
                           <th>Name</th>
                           <th>Birth Date</th>
                           <th>Address</th>
+                          <th>Total Earn</th>
                           <th>Option</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach($agents as $agent)
                         <tr>
-                          <td>{{ $agent->AgentId }}</td>
+                          <td>{{ $agent->AgentId }}</td> 
                           <td>{{ $agent->Name }}</td>
                           <td>{{ $agent->dob }}</td>
                           <td>{{ $agent->address }}</td>
+                           <td>
+                             
+                             @php
+                             $TotalEarn=  new App\Models\Saleshistory();
+                             $Earning= $TotalEarn->getCommission($agent->_id);
+                             @endphp
+                           </td>
 
                           <td>
                             <div class="btn-group" role="group" aria-label="Agent Actions">
