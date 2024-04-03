@@ -70,7 +70,11 @@
                                                             <option value="">This is a placeholder</option>
                                                             @foreach($homes as $home)
                                                             <option value="{{$home->_id}}"
-                                                            
+                                                            @php 
+                                                            if($home_id==$home->_id){
+                                                                echo "selected";
+                                                            } 
+                                                            @endphp
                                                             
                                                             >Home Id: {{$home->HomeID}}</option>
                                                             @endforeach
@@ -95,7 +99,7 @@
                             <div class="col-8">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Previous owners of Home Id: {{!empty($home_id)?$home_id:''}}</h4>
+                                        <h4 class="card-title">Previous owners of Home Id: {{!empty($home_details)?$home_details->HomeID:''}}</h4>
                                         <!-- <p class="card-title-desc">Here are examples of <code>.form-control</code> applied to each
                                             textual HTML5 <code>&lt;input&gt;</code> <code>type</code>.</p> -->
                                     </div>
@@ -107,33 +111,33 @@
                       
                         <thead>
                           <tr>
-                            <th>Home Id</th>
-                            <th>Floor Space</th>
-                            <th>Floors</th>
-                            <th>BedRooms</th>
-                            <th>BathRooms</th>
-                            <th>Land Size</th>
-                            <th>YearConstructed</th>
-                            <th>Type</th>
-                             
-                            <th>Price</th>
+                          <th>#</th>
+                            <th>Name</th>
+                            <th>SSN</th>
+                            <th>Family Member</th>
+                            <th>Income</th>
+                            <th>Age</th>
+                            <th>Profession</th>
+                            
                             <!-- <th>Address</th>
                             <th>Option</th> -->
                           </tr>
                         </thead>
                         <tbody>
                      
-                       @if(!empty($home_id))
-                            @foreach ($homes as $home)
+                       @if(!$owners->isEmpty())
+                            @php $i=0; @endphp
+                            @foreach ($owners as $owners)
+                                    @php $owner= $owners->ownerDetails; @endphp
                                 <tr>
-                                    <td>{{ $home->HomeID }}</td>
-                                    <td>{{ $home->FloorSpace }}</td>
-                                    <td>{{ $home->Floors }}</td>
-                                    <td>{{ $home->BedRooms }}</td>
-                                    <td>{{ $home->BathRooms }}</td>
-                                    <td>{{ $home->LandSize }}</td>
-                                    <td>{{ $home->YearConstructed }}</td>
-                                    <td>{{ $home->Type }}</td>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $owner->Name }}</td>
+                                    <td>{{ $owner->SSN }}</td>
+                                    <td>{{ $owner->Familymember }}</td>
+                                    <td>{{ $owner->Income }}</td>
+                                    <td>{{ $owner->Age }}</td>
+                                    <td>{{ $owner->Profession }}</td>
+                                    
                                    
                                     <td></td>
                                 </tr>

@@ -33,6 +33,7 @@ Route::delete('/agents/{id}', [AgentController::class, 'destroy'])->name('agents
 Route::get('owners/addNewOwners/{id?}', [OwnersController::class, 'addNewOwners'])->name('owners.addoredit');
 Route::post('owners/addorupdateNewOwnerForm', [OwnersController::class, 'addorupdateNewOwnerForm']);
 Route::get('owners', [OwnersController::class, 'index']);
+Route::any('homes/previousOwner', [OwnersController::class, 'previousOwner'])->name('homes.previousOwner');
 
 Route::get('appliances/addNewAppliances/{id?}', [AppliancesController::class, 'addNewAppliances'])->name('appliances.addoredit');
 Route::post('appliances/addorupdateNewApplianceForm', [AppliancesController::class, 'addorupdateNewApplianceForm']);
@@ -49,7 +50,7 @@ Route::get('homes/owned', [HomesController::class, 'owned']);
 Route::get('homes/statuschange/{id?}/{status?}', [HomesController::class, 'statuschange'])->name('homes.statuschange');
 Route::post('homes/addtosale', [HomesController::class, 'addtosale']);
 Route::get('/homes/saledetails/{id}', [HomesController::class, 'saledetails'])->name('homes.saledetails');
-Route::any('homes/previousOwner', [HomesController::class, 'previousOwner'])->name('homes.previousOwner');
+
 
 Route::get('companies', [CompaniesController::class, 'index']);
 Route::get('companies/addNewCompanies/{id?}', [CompaniesController::class, 'addNewCompanies'])->name('companies.addoredit');

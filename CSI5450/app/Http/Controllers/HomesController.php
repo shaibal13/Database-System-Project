@@ -268,25 +268,5 @@ class HomesController extends Controller
         return redirect()->to('homes')->with('success', 'Appliances added successfully');
         // print_r($request->appliances);
     }
-    public function previousOwner(Request $request){
-        $homesModel=new Homes();
-        $homes=$homesModel->getHomeDetails();
-        // $maker=$appliances_object->get_unique_maker_list(); 
-        if ($request->isMethod('get'))
-        {
-            $home_id=array();
-            return view('find_previous_owner',compact('homes','home_id'));
-        }
-        if ($request->isMethod('post'))
-        {
-            $home_id=$request->home_id;
-            
-            $owners=$homesModel->findThePreviousOwner($home_id);
-            print_r($owners); die();
-            // $homes_ob=new Homes();
-            // $homes=$homes_ob->findAllHomesUsedBySameMaker($maker_name);
-           
-            return view('find_appliances_home',compact('maker','maker_name','homes'));
-    }
-    }
+    
 }

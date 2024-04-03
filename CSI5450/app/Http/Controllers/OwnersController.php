@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Owners;
+use App\Models\Homes;
+use App\Models\Saleshistory;
 class OwnersController extends Controller
 {
 
@@ -47,5 +49,28 @@ class OwnersController extends Controller
 
     return redirect()->to('owners')->with('success', $message);
     }
-
+    public function previousOwner(Request $request){
+        $homesModel=new Homes();
+        $homes=$homesModel->getHomeDetails();
+       
+        if ($request->isMethod('get'))
+        {
+            $home_id='';
+            $home_details=array();
+            $owners=array();
+           
+        }
+        if ($request->isMethod('post'))
+        {
+            $saleshistoryModel = new Saleshistory();
+            $home_id=$request->home_id;
+            $home_details=$homesModel->getHome($home_id);
+           
+            $owners=$saleshistoryModel->findThePreviousOwner($home_details->OwnerId,$home_id);
+           
+           
+            
+    }
+    return view('find_previous_owner',compact('homes','owners','home_id','home_details'));
+    }
 }
