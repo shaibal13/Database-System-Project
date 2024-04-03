@@ -94,7 +94,7 @@
             <li class="menu-title" data-key="t-menu">Menu</li>
 
             <li>
-                <a href="dashboard">
+                <a href="/">
                     <i class="bx bx-tachometer icon nav-icon"></i>
                     <span class="menu-item" data-key="t-dashboards">Dashboard</span>
                     <!-- <span class="badge rounded-pill bg-success">5+</span> -->

@@ -62,6 +62,7 @@
                              @php
                              $TotalEarn=  new App\Models\Saleshistory();
                              $Earning= $TotalEarn->getCommission($agent->_id);
+                             echo $Earning;
                              @endphp
                            </td>
 

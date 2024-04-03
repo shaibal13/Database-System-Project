@@ -18,9 +18,12 @@ use App\Http\Controllers\SaleshistoryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('dashboard/dashboard');
-});
+// Route::get('/', function () {
+//     return view('dashboard/dashboard');
+// });
+Route::get('/', [SaleshistoryController::class, 'index']);
+
+
 Route::get('agents/addNewAgents/{id?}', [AgentController::class, 'addNewAgents'])->name('agents.addoredit');
 Route::post('agents/addorupdateNewAgentForm', [AgentController::class, 'addorupdateNewAgentForm']);
 Route::get('agents', [AgentController::class, 'index'])->name('agents.index');
