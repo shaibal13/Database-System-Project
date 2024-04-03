@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsedHomesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\OwnersController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\AppliancesController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\SaleshistoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +52,10 @@ Route::get('homes/owned', [HomesController::class, 'owned']);
 Route::get('homes/statuschange/{id?}/{status?}', [HomesController::class, 'statuschange'])->name('homes.statuschange');
 Route::post('homes/addtosale', [HomesController::class, 'addtosale']);
 Route::get('/homes/saledetails/{id}', [HomesController::class, 'saledetails'])->name('homes.saledetails');
+
+
+Route::get('/homes/used-homes', [UsedHomesController::class, 'showUsedHomes'])->name('used-homes');
+
 
 
 Route::get('companies', [CompaniesController::class, 'index']);

@@ -276,4 +276,75 @@ class Homes extends Eloquent
             return $collection->aggregate($pipeline);
         });
     }
+
+
+    // public function getUsedHomes() {
+    //     // Access the MongoDB collection through the raw method.
+    //     return $this->raw(function($collection) {
+    //         // Build the aggregation pipeline
+    //         return $collection->aggregate([
+    //             // First, perform a lookup to join with the sales histories collection.
+    //             [
+    //                 '$lookup' => [
+    //                     'from' => 'saleshistories',
+    //                     'localField' => '_id',
+    //                     'foreignField' => 'HomeId',
+    //                     'as' => 'SalesHistory'
+    //                 ]
+    //             ],
+    //             // Unwind the SalesHistory for easier access.
+    //             [
+    //                 '$unwind' => [
+    //                     'path' => '$SalesHistory',
+    //                     'preserveNullAndEmptyArrays' => true
+    //                 ]
+    //             ],
+    //             // Group by HomeId to count each HomeId occurrence.
+    //             [
+    //                 '$group' => [
+    //                     '_id' => '$_id',
+    //                     'count' => ['$sum' => 1],
+    //                     'HomeDetails' => ['$first' => '$$ROOT']
+    //                 ]
+    //             ],
+    //             // Filter out homes with a count less than 2 (sold once).
+    //             [
+    //                 '$match' => [
+    //                     'count' => ['$gt' => 1]
+    //                 ]
+    //             ],
+    //             // Perform a lookup to join with the locations collection.
+    //             [
+    //                 '$lookup' => [
+    //                     'from' => 'locations',
+    //                     'localField' => 'HomeDetails.LocationId',
+    //                     'foreignField' => '_id',
+    //                     'as' => 'LocationData'
+    //                 ]
+    //             ],
+    //             // Unwind the LocationData for easier access.
+    //             [
+    //                 '$unwind' => [
+    //                     'path' => '$LocationData',
+    //                     'preserveNullAndEmptyArrays' => true
+    //                 ]
+    //             ],
+    //             // Project the required fields.
+    //             [
+    //                 '$project' => [
+    //                     'FloorSpace' => '$HomeDetails.FloorSpace',
+    //                     'Floors' => '$HomeDetails.Floors',
+    //                     'BedRooms' => '$HomeDetails.BedRooms',
+    //                     'BathRooms' => '$HomeDetails.BathRooms',
+    //                     'Street' => '$LocationData.Street',
+    //                     'City' => '$LocationData.City',
+    //                     'State' => '$LocationData.State',
+    //                     'count' => 1,
+    //                     '_id' => 0 // Exclude the _id field.
+    //                 ]
+    //             ]
+    //         ]);
+    //     });
+    // }
+    
 }
