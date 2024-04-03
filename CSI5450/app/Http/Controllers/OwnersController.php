@@ -74,4 +74,18 @@ class OwnersController extends Controller
     return view('find_previous_owner',compact('homes','owners','home_id','home_details'));
     }
     
+    public function ownerHaveHomes(Request $request){
+        if ($request->isMethod('get'))
+        {
+            return view('find_owner');
+        }
+        if ($request->isMethod('post'))
+        {
+            $homes_type1=$request->homes_type1;
+            $homes_type2=$request->homes_type2;
+            $homes_ob=new Homes();
+            $owners=$homes_ob->findowners($homes_type1, $homes_type2);
+            return view('find_owner', compact('owners'));
+        }
+    }
 }

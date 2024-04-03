@@ -35,6 +35,7 @@ Route::delete('/agents/{id}', [AgentController::class, 'destroy'])->name('agents
 Route::get('owners/addNewOwners/{id?}', [OwnersController::class, 'addNewOwners'])->name('owners.addoredit');
 Route::post('owners/addorupdateNewOwnerForm', [OwnersController::class, 'addorupdateNewOwnerForm']);
 Route::get('owners', [OwnersController::class, 'index']);
+Route::any('owners/ownerhavehomes', [OwnersController::class, 'ownerHaveHomes'])->name('owners.owners_have_homes');
 Route::any('homes/previousOwner', [OwnersController::class, 'previousOwner'])->name('homes.previousOwner');
 
 Route::get('appliances/addNewAppliances/{id?}', [AppliancesController::class, 'addNewAppliances'])->name('appliances.addoredit');

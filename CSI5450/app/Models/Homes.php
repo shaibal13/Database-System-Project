@@ -346,5 +346,49 @@ class Homes extends Eloquent
     //         ]);
     //     });
     // }
-    
+
+    // Question 7	Find people who own apartments as well as mansions. 
+    public function findowners($type1,$type2){
+        return self::raw(function($collection) use ($type1,$type2) {
+            return $collection->aggregate([
+                [
+                    '$group' => [
+                        '_id' => '$OwnerId',
+                        'types' => ['$addToSet' => '$Type']
+                    ]
+                ],
+                [
+                    '$match' => [
+                        'types' => ['$all' =>  [$type1, $type2]]
+                    ]
+                ],
+                [
+                    '$lookup' => [
+                        'from' => 'owners',
+                        'let' => ['ownerId' => ['$toObjectId' => '$_id']],
+                        'pipeline' => [
+                            [
+                                '$match' => [
+                                    '$expr' => ['$eq' => ['$_id', '$$ownerId']]
+                                ]
+                            ]
+                        ],
+                        'as' => 'ownerInfo'
+                    ]
+                ],
+                ['$unwind' => '$ownerInfo'],
+                [
+                    '$project' => [
+                        '_id' => '$ownerInfo._id',
+                        'Name' => '$ownerInfo.Name',
+                        'SSN' => '$ownerInfo.SSN',
+                        'Familymember' => '$ownerInfo.Familymember',
+                        'Income' => '$ownerInfo.Income',
+                        'Age' => '$ownerInfo.Age',
+                        'Profession' => '$ownerInfo.Profession'
+                    ]
+                ]
+            ]);
+        });
+    }
 }

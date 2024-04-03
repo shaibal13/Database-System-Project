@@ -155,6 +155,7 @@
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('owners.addoredit') }}" data-key="t-products">Add New Owner</a></li>
                     <li><a href="/owners" data-key="">Owners List</a></li>
+                    <li><a href="{{ route('owners.owners_have_homes') }}" data-key="t-products">Owners of specified home type</a></li>
                    
                 </ul>
             </li>
