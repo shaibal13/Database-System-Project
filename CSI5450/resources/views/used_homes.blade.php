@@ -48,23 +48,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($usedHomes as $home)
+                                                @foreach ($usedHomes as $home)
                                                 <tr>
-                                                    <td>{{ $home->FloorSpace }}</td>
-                                                    <td>{{ $home->Floors }}</td>
-                                                    <td>{{ $home->BedRooms }}</td>
-                                                    <td>{{ $home->BathRooms }}</td>
-                                                    <td>{{ $home->Street }}</td>
-                                                    <td>{{ $home->City }}</td>
-                                                    <td>{{ $home->State }}</td>
-                                                    <td>{{ $home->SalesCount }}</td>
+                                                    <td>{{ $home['FloorSpace']?? 'N/A' }}</td>
+                                                    <td>{{ $home['Floors'] ?? 'N/A' }}</td>
+                                                    <td>{{ $home['BedRooms'] ?? 'N/A' }}</td>
+                                                    <td>{{ $home['BathRooms'] ?? 'N/A' }}</td>
+                                                    <td>{{ $home['Street'] ?? 'N/A' }}</td>
+                                                    <td>{{ $home['City'] ?? 'N/A' }}</td>
+                                                    <td>{{ $home['State'] ?? 'N/A' }}</td>
+                                                    <td>{{ $home['SalesCount'] ?? 'N/A' }}</td>
                                                 </tr>
-                                                @empty
+                                                @endforeach
+
+                                                @if(count($usedHomes) == 0)
                                                 <tr>
-                                               
                                                     <td colspan="8" class="text-center">No used homes found.</td>
                                                 </tr>
-                                                @endforelse
+                                                @endif
+
                                             </tbody>
                                         </table>
                                     </div>
