@@ -38,4 +38,14 @@ class Owners extends Eloquent
             );
         });
     }
+    public function getOwnerByName($name) {
+        // return self::where('Name', $name)->first();
+        $owner = self::where('Name', $name)->first(['_id']); // 
+
+        if ($owner) {           
+            return (string) $owner->_id;
+        }
+    
+        return null; 
+    }
 }
