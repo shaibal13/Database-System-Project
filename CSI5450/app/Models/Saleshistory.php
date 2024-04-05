@@ -207,7 +207,7 @@ class Saleshistory extends Eloquent
     // }
 
     public function findMostExpensiveHome($ownerId) {
-        // 第一步：找到最高价格
+        // step 1: find the highest price based on owneId
         $maxPriceResult = self::raw(function($collection) use ($ownerId) {
             return $collection->aggregate([
                 [
@@ -226,12 +226,12 @@ class Saleshistory extends Eloquent
             ]);
         });
     
-        // 检查是否有结果
+        // check result
         if(empty($maxPriceResult)) return [];
     
         $maxPrice = $maxPriceResult[0]['maxPrice'] ?? 0;
     
-        // 第二步：根据最高价格找出所有相应的房产
+        // step 2:Find all homes Base on price 
         $result = self::raw(function($collection) use ($ownerId, $maxPrice) {
             return $collection->aggregate([
                 [
