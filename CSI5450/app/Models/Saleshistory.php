@@ -176,6 +176,37 @@ class Saleshistory extends Eloquent
     //         return $collection->aggregate($pipeline);
     //     });
     // }
+
+    public function findMostExpensiveHome($ownerId) {
+        $result = self::raw(function($collection) use ($ownerId) {
+            return $collection->aggregate([
+                [
+                    '$match' => [
+                        'OwnerId' => $ownerId // 
+                    ]
+                ],
+                [
+                    '$sort' => [
+                        'price' => -1 // 
+                    ]
+                ],
+                [
+                    '$limit' => 1 // 
+                ],
+                [
+                    '$project' => [ // 
+                        'HomeId' => 1, // 
+                        'price' => 1, // 
+                        '_id' => 0, // 
+                    ]
+                ]
+            ]);
+        });
+    
+        return $result;
+    }
+
+    
     public function getHomesSoldMoreThanOnce()
 {
     return $this->raw(function ($collection) {

@@ -56,7 +56,7 @@ Route::get('/homes/saledetails/{id}', [HomesController::class, 'saledetails'])->
 Route::any('homes/expensiveHomes', [HomesController::class, 'expensiveHomes'])->name('homes.expensivehome');
 
 Route::get('/homes/used-homes', [UsedHomesController::class, 'showUsedHomes'])->name('used-homes');
-
+Route::any('homes/mostExpensiveHome', [HomesController::class, 'findExpensiveHome'])->name('homes.mostExpensiveHome');
 
 
 Route::get('companies', [CompaniesController::class, 'index']);
