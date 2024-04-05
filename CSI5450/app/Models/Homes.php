@@ -159,7 +159,7 @@ class Homes extends Eloquent
         // $locationIdsToString = $locationIds->map(function ($id) {
         //     return (string) $id;
         // });
-
+       
         $pipeline = [];
 
         $pipeline[] = [
@@ -193,8 +193,8 @@ class Homes extends Eloquent
             ];
         }
         if ($minPrice > 0 ||$minPrice > '0') {
-            $pipeline = [
-                [
+            $pipeline[] = [
+                
                     '$match' => [
                         '$expr' => [
                             '$and' => [
@@ -207,7 +207,7 @@ class Homes extends Eloquent
                             ],
                         ],
                     ],
-                ]
+                
             ];
         }
         if ($bedrooms !== 'all') {
@@ -249,8 +249,8 @@ class Homes extends Eloquent
             ];
         }
         if ($minPrice > 0 || $minPrice > '0') {
-            $pipeline = [
-                [
+            $pipeline[] = [
+                
                     '$match' => [
                         '$expr' => [
                             '$and' => [
@@ -263,30 +263,30 @@ class Homes extends Eloquent
                             ],
                         ],
                     ],
+                
+            ];
+        }
+        if ($bedrooms !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'BedRooms' => $bedrooms
                 ]
             ];
         }
-        // if ($bedrooms !== 'all') {
-        //     $pipeline[] = [
-        //         '$match' => [
-        //             'BedRooms' => $bedrooms
-        //         ]
-        //     ];
-        // }
-        // if ($bathrooms !== 'all') {
-        //     $pipeline[] = [
-        //         '$match' => [
-        //             'BathRooms' => $bathrooms
-        //         ]
-        //     ];
-        // }
-        // if ($status !== 'all') {
-        //     $pipeline[] = [
-        //         '$match' => [
-        //             'Status' => $status
-        //         ]
-        //     ];
-        // }
+        if ($bathrooms !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'BathRooms' => $bathrooms
+                ]
+            ];
+        }
+        if ($status !== 'all') {
+            $pipeline[] = [
+                '$match' => [
+                    'Status' => $status
+                ]
+            ];
+        }
       
         return self::raw(function($collection) use ($pipeline) {
             return $collection->aggregate($pipeline);
