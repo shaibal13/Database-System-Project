@@ -276,7 +276,32 @@ class Homes extends Eloquent
             return $collection->aggregate($pipeline);
         });
     }
+    public function findExpensiveHomeOwner($city_select){
+        $pipeline = [];
 
+        $pipeline[] = [
+            '$lookup' => [
+                'from' => 'locations', 
+                'localField' => 'LocationId', 
+                'foreignField' => '_id', 
+                'as' => 'location' 
+            ]
+        ];
+        $pipeline[] = [
+            '$unwind' => [
+                'path' => '$location',
+                'preserveNullAndEmptyArrays' => true // Keep homes without a location
+            ]
+        ];
+        // Match on city name if it's not all
+        
+            $pipeline[] = [
+                '$match' => [
+                    'location.City' => $city_select
+                ]
+            ];
+        
+    }
 
     // public function getUsedHomes() {
     //     // Access the MongoDB collection through the raw method.

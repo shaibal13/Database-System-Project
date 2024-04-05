@@ -67,10 +67,10 @@
                                                             id="choices-single-default"
                                                             placeholder="This is a search placeholder" required>
                                                             <option value="">Choose a home type</option>
-                                                            <option value="Mansion">Mansion</option>
-                                                            <option value="Apartment">Apartment</option>
-                                                            <option value="Condo">Condo</option>
-                                                            <option value="Townhome">Townhome</option>
+                                                            <option value="Mansion" {{$homes_type1=='Mansion'?'selected':''}}>Mansion</option>
+                                                            <option value="Apartment" {{$homes_type1=='Apartment'?'selected':''}}>Apartment</option>
+                                                            <option value="Condo" {{$homes_type1=='Condo'?'selected':''}}>Condo</option>
+                                                            <option value="Townhome" {{$homes_type1=='Townhome'?'selected':''}}>Townhome</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -81,10 +81,10 @@
                                                             id="choices-single-default"
                                                             placeholder="This is a search placeholder" required>
                                                             <option value="">Choose a home type</option>
-                                                            <option value="Mansion">Mansion</option>
-                                                            <option value="Apartment">Apartment</option>
-                                                            <option value="Condo">Condo</option>
-                                                            <option value="Townhome">Townhome</option>
+                                                            <option value="Mansion" {{$homes_type2=='Mansion'?'selected':''}}>Mansion</option>
+                                                            <option value="Apartment" {{$homes_type2=='Apartment'?'selected':''}}>Apartment</option>
+                                                            <option value="Condo" {{$homes_type2=='Condo'?'selected':''}}>Condo</option>
+                                                            <option value="Townhome" {{$homes_type2=='Townhome'?'selected':''}}>Townhome</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -130,7 +130,7 @@
                         </thead>
                         <tbody>
                             {{-- <?php var_dump($owners); ?> --}}
-                            @if(!empty($owners))
+                            @if(!$owners->isEmpty())
                                 @foreach ($owners as $owner)
                                     <tr>
                                         {{-- <?php var_dump($owner->_id); ?>

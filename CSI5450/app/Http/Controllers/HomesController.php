@@ -98,11 +98,11 @@ class HomesController extends Controller
         // Instantiate the Homes model
         $homesModel = new Homes();
         $homes = $id ? $homesModel->getHome($id) : $homesModel;
-        //$homes = $id ? Homes::getHome($id) : new Homes;
+        
         $locationModel = new Location();
         // Retrieve location based on the home's LocationId or create a new instance
         $location = $id && isset($homes->LocationId) ? $locationModel->getLocation($homes->LocationId) : $locationModel;
-        //$location = $id ? Location::getLocation($homes->LocationId) : new Location;
+       
         return view('add_new_homes', compact('homes', 'location'));
     }
     // Type of homes
@@ -173,15 +173,14 @@ class HomesController extends Controller
             //add function
             $locationModel = new Location();
             $location_id = $locationModel->addLocation($data_location)->getInsertedId();
-            //$location_id = Location::addLocation($data_location)->getInsertedId();
-
+           
 
             $data['HomeID'] = $home_id;
             $data['LocationId'] = $location_id;
 
-            //$homesModel = new Homes(); // <-- New instance created here
+           
             $homesModel->addHome($data);
-            //Homes::addHome($data);
+           
             $message = 'New Homes added successfully!';
         }
 
@@ -249,9 +248,6 @@ class HomesController extends Controller
                 $existed_appliances[] = json_decode(json_encode($existed_appliance_), true)['ModelName'];
             }
         }
-        // print_r($appliances);
-        // $appliances=Appliances::getAppliancesDetails();
-        // return view('add_appliances_to_home',compact('homes','appliances'));
 
         return view('add_appliances_to_home', compact('homes', 'appliances', 'existed_appliances'));
     }
@@ -269,4 +265,20 @@ class HomesController extends Controller
         // print_r($request->appliances);
     }
     
+    //q9
+    public function expensiveHomes(Request $request){
+        $locationModel = new Location();
+        $homeModel=new Homes();
+        $cities=$locationModel->get_unique_maker_list();
+        if($request->isMethod('get')){
+            $city_select='';
+        }
+        if($request->isMethod('post')){
+
+            $city_select=$request->city;
+            $owners_list=$homesModel->findExpensiveHomeOwner($city_select);
+
+        }
+        return view('expensive_homes', compact('city_select', 'cities'));
+    }
 }

@@ -127,6 +127,7 @@
                     <li><a href="/homes/owned" data-key="">Owned Homes</a></li>
                     <li><a href="{{ route('homes.previousOwner') }}" data-key="t-products">Previous Owners</a></li>
                     <li><a href="{{ route('used-homes') }}" data-key="t-used-homes">Used Homes</a></li>
+                    <li><a href="{{ route('homes.expensivehome') }}" data-key="t-used-homes">Expensive Homes</a></li>
                     <!-- <li><a href="/homes/owned" data-key="">Owned Homes</a></li> -->
                     <!-- <li><a href="{{ route('homes.add_appliances') }}" data-key="t-products">New Appliances to home</a></li> -->
                    
@@ -155,7 +156,7 @@
                 <ul class="sub-menu" aria-expanded="false">
                     <li><a href="{{ route('owners.addoredit') }}" data-key="t-products">Add New Owner</a></li>
                     <li><a href="/owners" data-key="">Owners List</a></li>
-                    <li><a href="{{ route('owners.owners_have_homes') }}" data-key="t-products">Owners of specified home type</a></li>
+                    <li><a href="{{ route('owners.owners_have_homes') }}" data-key="t-products">Home Types Owners</a></li>
                    
                 </ul>
             </li>

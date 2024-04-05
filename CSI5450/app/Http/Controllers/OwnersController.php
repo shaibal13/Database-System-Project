@@ -57,7 +57,7 @@ class OwnersController extends Controller
         {
             $home_id='';
             $home_details=array();
-            $owners=array();
+            $owners=collect();
            
         }
         if ($request->isMethod('post'))
@@ -76,8 +76,11 @@ class OwnersController extends Controller
     
     public function ownerHaveHomes(Request $request){
         if ($request->isMethod('get'))
-        {
-            return view('find_owner');
+        {   
+            $homes_type1='';
+            $homes_type2='';
+            $owners=collect();
+            // return view('find_owner');
         }
         if ($request->isMethod('post'))
         {
@@ -85,7 +88,8 @@ class OwnersController extends Controller
             $homes_type2=$request->homes_type2;
             $homes_ob=new Homes();
             $owners=$homes_ob->findowners($homes_type1, $homes_type2);
-            return view('find_owner', compact('owners'));
+           
         }
+        return view('find_owner', compact('owners','homes_type1','homes_type2'));
     }
 }
