@@ -308,13 +308,14 @@ class HomesController extends Controller
         $cities=$locationModel->get_unique_maker_list();
         if($request->isMethod('get')){
             $city_select='';
+            $owners_list=collect();
         }
         if($request->isMethod('post')){
 
             $city_select=$request->city;
-            $owners_list=$homesModel->findExpensiveHomeOwner($city_select);
+            $owners_list=$homeModel->findExpensiveHomeOwner($city_select);
 
         }
-        return view('expensive_homes', compact('city_select', 'cities'));
+        return view('expensive_homes_city', compact('city_select', 'cities','owners_list'));
     }
 }

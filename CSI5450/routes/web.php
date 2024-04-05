@@ -53,7 +53,7 @@ Route::get('homes/owned', [HomesController::class, 'owned']);
 Route::get('homes/statuschange/{id?}/{status?}', [HomesController::class, 'statuschange'])->name('homes.statuschange');
 Route::post('homes/addtosale', [HomesController::class, 'addtosale']);
 Route::get('/homes/saledetails/{id}', [HomesController::class, 'saledetails'])->name('homes.saledetails');
-Route::any('homes/expensiveHomes', [HomesController::class, 'expensiveHomes'])->name('homes.expensivehome');
+Route::any('owners/expensiveHomesInaCity', [HomesController::class, 'expensiveHomes'])->name('homes.expensivehome');
 
 Route::get('/homes/used-homes', [UsedHomesController::class, 'showUsedHomes'])->name('used-homes');
 Route::any('homes/mostExpensiveHome', [HomesController::class, 'findExpensiveHome'])->name('homes.mostExpensiveHome');

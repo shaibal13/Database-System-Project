@@ -99,7 +99,7 @@
                             <div class="col-8">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Home list who are using {{!empty($city_select)?$city_select:''}}</h4>
+                                        <h4 class="card-title">Expensive Homes owner in the city {{!empty($city_select)?$city_select:''}}</h4>
                                         <!-- <p class="card-title-desc">Here are examples of <code>.form-control</code> applied to each
                                             textual HTML5 <code>&lt;input&gt;</code> <code>type</code>.</p> -->
                                     </div>
@@ -111,19 +111,45 @@
                       
                         <thead>
                           <tr>
-                            <th>Owner Id</th>
+                            <th>Home Id</th>
                             <th>Name</th>
-                            <th>SSN</th>
-                            <th>Family Member</th>
-                            <th>Income</th>
                             <th>Age</th>
                             <th>Profession</th>
+                            <th>Price</th>
+                            <th>Type</th>
+                            <!-- <th>Age</th> -->
+                           
                             <!-- <th>Address</th>
                             <th>Option</th> -->
                           </tr>
                         </thead>
                         <tbody>
-                     
+                        @if(!$owners_list->isEmpty())
+                            @foreach($owners_list as $owner)
+                            @php $ownerModel=new \App\Models\Owners(); 
+                                $ownerdetails=$ownerModel->getOwners($owner->_id);
+                               
+                            @endphp
+                                @foreach ($owner->homes as $home) 
+<tr>
+<td> {{ $home['HomeID']}}</td>
+    <td> {{ $ownerdetails->Name}}</td>
+    <td> {{ $ownerdetails->Age}}</td>
+    <td> {{ $ownerdetails->Profession}}</td>
+    <td> {{ $home['Price']}}</td>
+    <td> {{ $home['Type']}}</td>
+                                                        </tr>
+
+                        @endforeach
+                        @endforeach
+
+
+@else
+<tr>
+                                <td colspan="6" class="text-center">No homes found.</td>
+                            </tr>
+
+                        @endif
                      
                        
                         </tbody>
