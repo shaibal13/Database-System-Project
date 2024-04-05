@@ -193,16 +193,22 @@ class Homes extends Eloquent
             ];
         }
         if ($minPrice > 0 ||$minPrice > '0') {
-            $pipeline[] = [
-                '$match' => [
-                    '$expr' => [
-                        '$and' => [
-                            ['$ne' => ['$price', '']],
-                            ['$lt' => [['$toDouble' => '$price'], $minPrice]]
-                        ]
-                    ]
+            $pipeline = [
+                [
+                    '$match' => [
+                        '$expr' => [
+                            '$and' => [
+                                // Ensure the price field exists
+                                ['$gt' => [['$type' => '$price'], 'null']],
+                                // Exclude documents where price is an empty string
+                                ['$ne' => ['$price', '']],
+                                // Ensure the price, when converted to a double, is less than minPrice
+                                ['$lt' => [['$toDouble' => '$price'],(double)$minPrice]],
+                            ],
+                        ],
+                    ],
                 ]
-                        ];
+            ];
         }
         if ($bedrooms !== 'all') {
             $pipeline[] = [
