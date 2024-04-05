@@ -256,6 +256,7 @@
                         </tr>
                       </thead>
                       <tbody>
+                        @if (!$homes->isEmpty())
                         @php $i = 1; @endphp
                         @foreach($homes as $home)
                         @php
@@ -327,7 +328,17 @@
                           <!-- Add other fields as needed -->
                         </tr>
                         @endforeach
-
+                          @else
+                            @if($type == 'owned')
+                            <tr>
+                                <td colspan="9" class="text-center">No homes found.</td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="11" class="text-center">No homes found.</td>
+                            </tr>
+                            @endif
+                          @endif
                       </tbody>
                     </table>
                   </div>

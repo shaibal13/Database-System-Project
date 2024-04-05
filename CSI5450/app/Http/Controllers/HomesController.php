@@ -24,7 +24,7 @@ class HomesController extends Controller
         $bathrooms=$homesModel->get_unique_maker_list('BathRooms'); //BedRooms
         $owners = $ownersModel->getOwnersDetails();
         $companies = $companiesModel->getCompaniesDetails();
-
+        $homes=collect();
         // For getting the output
         $city_select='';
         $owner_select='';
@@ -44,6 +44,7 @@ class HomesController extends Controller
             $city_select=$request->city;
             $owner_select=$request->owner;
             $price=$request->price;
+            
             $no_of_bedroom=$request->no_of_bedroom;
            
             $no_of_bathroom=$request->no_of_bathroom;
@@ -56,7 +57,7 @@ class HomesController extends Controller
             }else{
                 $homes = $homesModel->filterHomeListForAll($owner_select, $price, $no_of_bedroom,$no_of_bathroom, $home_status);
             }
-
+            
            
             $type = 'all'; 
             

@@ -195,12 +195,14 @@ class Homes extends Eloquent
         if ($minPrice > 0 ||$minPrice > '0') {
             $pipeline[] = [
                 '$match' => [
-                    'price' => [
-                        '$ne' => '',
-                        '$lt' => $minPrice
+                    '$expr' => [
+                        '$and' => [
+                            ['$ne' => ['$price', '']],
+                            ['$lt' => [['$toDouble' => '$price'], $minPrice]]
+                        ]
                     ]
                 ]
-            ];
+                        ];
         }
         if ($bedrooms !== 'all') {
             $pipeline[] = [
@@ -240,37 +242,45 @@ class Homes extends Eloquent
                 ]
             ];
         }
-        if ($minPrice > 0 ||$minPrice > '0') {
-            $pipeline[] = [
-                '$match' => [
-                    'price' => [
-                        '$ne' => '',
-                        '$lt' => $minPrice
-                    ]
+        if ($minPrice > 0 || $minPrice > '0') {
+            $pipeline = [
+                [
+                    '$match' => [
+                        '$expr' => [
+                            '$and' => [
+                                // Ensure the price field exists
+                                ['$gt' => [['$type' => '$price'], 'null']],
+                                // Exclude documents where price is an empty string
+                                ['$ne' => ['$price', '']],
+                                // Ensure the price, when converted to a double, is less than minPrice
+                                ['$lt' => [['$toDouble' => '$price'],(double)$minPrice]],
+                            ],
+                        ],
+                    ],
                 ]
             ];
         }
-        if ($bedrooms !== 'all') {
-            $pipeline[] = [
-                '$match' => [
-                    'BedRooms' => $bedrooms
-                ]
-            ];
-        }
-        if ($bathrooms !== 'all') {
-            $pipeline[] = [
-                '$match' => [
-                    'BathRooms' => $bathrooms
-                ]
-            ];
-        }
-        if ($status !== 'all') {
-            $pipeline[] = [
-                '$match' => [
-                    'Status' => $status
-                ]
-            ];
-        }
+        // if ($bedrooms !== 'all') {
+        //     $pipeline[] = [
+        //         '$match' => [
+        //             'BedRooms' => $bedrooms
+        //         ]
+        //     ];
+        // }
+        // if ($bathrooms !== 'all') {
+        //     $pipeline[] = [
+        //         '$match' => [
+        //             'BathRooms' => $bathrooms
+        //         ]
+        //     ];
+        // }
+        // if ($status !== 'all') {
+        //     $pipeline[] = [
+        //         '$match' => [
+        //             'Status' => $status
+        //         ]
+        //     ];
+        // }
       
         return self::raw(function($collection) use ($pipeline) {
             return $collection->aggregate($pipeline);
