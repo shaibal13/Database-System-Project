@@ -177,27 +177,74 @@ class Saleshistory extends Eloquent
     //     });
     // }
 
+    // public function findMostExpensiveHome($ownerId) {
+    //     $result = self::raw(function($collection) use ($ownerId) {
+    //         return $collection->aggregate([
+    //             [
+    //                 '$match' => [
+    //                     'OwnerId' => $ownerId // 
+    //                 ]
+    //             ],
+    //             [
+    //                 '$sort' => [
+    //                     'price' => -1 // 
+    //                 ]
+    //             ],
+    //             [
+    //                 '$limit' => 1 // 
+    //             ],
+    //             [
+    //                 '$project' => [ // 
+    //                     'HomeId' => 1, // 
+    //                     'price' => 1, // 
+    //                     '_id' => 0, // 
+    //                 ]
+    //             ]
+    //         ]);
+    //     });
+    
+    //     return $result;
+    // }
+
     public function findMostExpensiveHome($ownerId) {
-        $result = self::raw(function($collection) use ($ownerId) {
+        // 第一步：找到最高价格
+        $maxPriceResult = self::raw(function($collection) use ($ownerId) {
             return $collection->aggregate([
                 [
                     '$match' => [
-                        'OwnerId' => $ownerId // 
+                        'OwnerId' => $ownerId
                     ]
                 ],
                 [
-                    '$sort' => [
-                        'price' => -1 // 
+                    '$group' => [
+                        '_id' => null,
+                        'maxPrice' => [
+                            '$max' => '$price'
+                        ]
+                    ]
+                ]
+            ]);
+        });
+    
+        // 检查是否有结果
+        if(empty($maxPriceResult)) return [];
+    
+        $maxPrice = $maxPriceResult[0]['maxPrice'] ?? 0;
+    
+        // 第二步：根据最高价格找出所有相应的房产
+        $result = self::raw(function($collection) use ($ownerId, $maxPrice) {
+            return $collection->aggregate([
+                [
+                    '$match' => [
+                        'OwnerId' => $ownerId,
+                        'price' => $maxPrice
                     ]
                 ],
                 [
-                    '$limit' => 1 // 
-                ],
-                [
-                    '$project' => [ // 
-                        'HomeId' => 1, // 
-                        'price' => 1, // 
-                        '_id' => 0, // 
+                    '$project' => [
+                        'HomeId' => 1,
+                        'price' => 1,
+                        '_id' => 0,
                     ]
                 ]
             ]);
@@ -205,6 +252,7 @@ class Saleshistory extends Eloquent
     
         return $result;
     }
+    
 
     
     public function getHomesSoldMoreThanOnce()
