@@ -266,12 +266,9 @@ class HomesController extends Controller
         // print_r($request->appliances);
     }
     public function findExpensiveHome(Request $request){
-        // $appliances_object=new Appliances();
-        // $owner=$appliances_object->get_unique_maker_list(); 
-        // $selectedOwner = $request->input('home_owner');
-        // dump($request->all()); 
+       
         $selectedOwner = $request->input('appliances_maker');
-        // dump($selectedOwner);
+       
         
         
 
@@ -289,21 +286,16 @@ class HomesController extends Controller
         if ($request->isMethod('get'))
         {
             $homes=array();
-            return view('expensive_home',compact('owner','homes'));
+            return view('expensive_home',compact('owner','homes','selectedOwner'));
         }
         if ($request->isMethod('post'))
         {
-            // $owner_name=$request->appliances_maker;
+            
             $homes_ob=new Saleshistory();
             $homes=$homes_ob->findMostExpensiveHome($ownerId);
-            
-            // dump($homes);
-            
-
-            // if ($homes) {
-            //     $homeDetail[] = $homes; 
-            // }
-            return view('expensive_home',compact('owner','homes'));
+           
+           
+            return view('expensive_home',compact('owner','homes','selectedOwner'));
         }
         
     }

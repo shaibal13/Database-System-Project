@@ -68,17 +68,17 @@
                                                             id="choices-single-default"
                                                             placeholder="This is a search placeholder" required>
                                                             <option value="">This is a placeholder</option>
-                                                            @foreach($owner as $owner)
-                                                            <option value="{{$owner}}"
+                                                            @foreach($owner as $owners)
+                                                            <option value="{{$owners}}"
                                                             @php
-                                                                if(!empty($owner_name)){
-                                                                    if($owner_name==$owner){
+                                                                if(!empty($selectedOwner)){
+                                                                    if($selectedOwner==$owners){
                                                                         echo "selected";
                                                                     }
                                                                 }
                                                             @endphp
                                                             
-                                                            >{{$owner}}</option>
+                                                            >{{$owners}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -114,6 +114,7 @@
                         <thead>
                           <tr>
                             <th>Home Id</th>
+                            <th>Type</th>
                             <th>Price</th>
 
                           </tr>
@@ -122,8 +123,13 @@
                      
                        @if(!empty($homes))
                             @foreach ($homes as $home)
+                             @php 
+                             $homeModel=new App\Models\Homes();
+                             $home_details=$homeModel->getHome($home->HomeId);
+                             @endphp
                                 <tr>
-                                    <td>{{ $home-> HomeId }}</td>
+                                    <td>{{ $home_details-> HomeID }}</td>
+                                    <td>{{ $home_details-> Type }}</td>
                                     <td>{{ $home -> price}}</td>
                                 </tr>
                          @endforeach
