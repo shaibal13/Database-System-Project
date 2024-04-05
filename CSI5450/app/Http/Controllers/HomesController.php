@@ -298,7 +298,7 @@ class HomesController extends Controller
            
             return view('expensive_home',compact('owner','homes','selectedOwner'));
         }
-        
+       
     }
     
     //q9
