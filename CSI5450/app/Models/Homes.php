@@ -156,10 +156,6 @@ class Homes extends Eloquent
         });
     }
     public function filterHomeListForCustomLocation($city,$owner, $minPrice, $bedrooms,$bathrooms, $status){
-        // $locationIdsToString = $locationIds->map(function ($id) {
-        //     return (string) $id;
-        // });
-       
         $pipeline = [];
 
         $pipeline[] = [

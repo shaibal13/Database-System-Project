@@ -70,11 +70,7 @@
                             <div class="btn-group" role="group" aria-label="Agent Actions">
                               <a href="{{ route('agents.addoredit', $agent->_id) }}" class="btn btn-warning btn-xs" style="width: 70px; margin-right: 8px;">Edit</a>
 
-                              <form action="{{ route('agents.delete', $agent->_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this agent?');" style="display: inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-xs" style="width: 70px;">Delete</button>
-                              </form>
+                            
                             </div>
                           </td>
 

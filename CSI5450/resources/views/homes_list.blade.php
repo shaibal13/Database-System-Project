@@ -110,7 +110,7 @@
                                                 </div>
                                                 <div class="col-1">
                                                     <div class="mb-3">
-                                                        <label for="choices-single-default" class="form-label font-size-13 text-muted">Min Price</label>
+                                                        <label for="choices-single-default" class="form-label font-size-13 text-muted">Max Price</label>
                                                         <input class="form-control" type="number" step=0.01 value="{{$price==0||$price==''?0:$price }}" id="example-text-input" name="price" required>
                                                     </div>
                                                 </div>
